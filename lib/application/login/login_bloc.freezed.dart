@@ -21,6 +21,7 @@ mixin _$LoginEvent {
     required TResult Function() initialize,
     required TResult Function() passwdvisible,
     required TResult Function(String username, String password) loginclick,
+    required TResult Function() logoutclick,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$LoginEvent {
     TResult Function()? initialize,
     TResult Function()? passwdvisible,
     TResult Function(String username, String password)? loginclick,
+    TResult Function()? logoutclick,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$LoginEvent {
     TResult Function()? initialize,
     TResult Function()? passwdvisible,
     TResult Function(String username, String password)? loginclick,
+    TResult Function()? logoutclick,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$LoginEvent {
     required TResult Function(Initialize value) initialize,
     required TResult Function(Passwdvisible value) passwdvisible,
     required TResult Function(Loginclick value) loginclick,
+    required TResult Function(Logoutclick value) logoutclick,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$LoginEvent {
     TResult Function(Initialize value)? initialize,
     TResult Function(Passwdvisible value)? passwdvisible,
     TResult Function(Loginclick value)? loginclick,
+    TResult Function(Logoutclick value)? logoutclick,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$LoginEvent {
     TResult Function(Initialize value)? initialize,
     TResult Function(Passwdvisible value)? passwdvisible,
     TResult Function(Loginclick value)? loginclick,
+    TResult Function(Logoutclick value)? logoutclick,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -121,6 +127,7 @@ class _$Initialize implements Initialize {
     required TResult Function() initialize,
     required TResult Function() passwdvisible,
     required TResult Function(String username, String password) loginclick,
+    required TResult Function() logoutclick,
   }) {
     return initialize();
   }
@@ -131,6 +138,7 @@ class _$Initialize implements Initialize {
     TResult Function()? initialize,
     TResult Function()? passwdvisible,
     TResult Function(String username, String password)? loginclick,
+    TResult Function()? logoutclick,
   }) {
     return initialize?.call();
   }
@@ -141,6 +149,7 @@ class _$Initialize implements Initialize {
     TResult Function()? initialize,
     TResult Function()? passwdvisible,
     TResult Function(String username, String password)? loginclick,
+    TResult Function()? logoutclick,
     required TResult orElse(),
   }) {
     if (initialize != null) {
@@ -155,6 +164,7 @@ class _$Initialize implements Initialize {
     required TResult Function(Initialize value) initialize,
     required TResult Function(Passwdvisible value) passwdvisible,
     required TResult Function(Loginclick value) loginclick,
+    required TResult Function(Logoutclick value) logoutclick,
   }) {
     return initialize(this);
   }
@@ -165,6 +175,7 @@ class _$Initialize implements Initialize {
     TResult Function(Initialize value)? initialize,
     TResult Function(Passwdvisible value)? passwdvisible,
     TResult Function(Loginclick value)? loginclick,
+    TResult Function(Logoutclick value)? logoutclick,
   }) {
     return initialize?.call(this);
   }
@@ -175,6 +186,7 @@ class _$Initialize implements Initialize {
     TResult Function(Initialize value)? initialize,
     TResult Function(Passwdvisible value)? passwdvisible,
     TResult Function(Loginclick value)? loginclick,
+    TResult Function(Logoutclick value)? logoutclick,
     required TResult orElse(),
   }) {
     if (initialize != null) {
@@ -231,6 +243,7 @@ class _$Passwdvisible implements Passwdvisible {
     required TResult Function() initialize,
     required TResult Function() passwdvisible,
     required TResult Function(String username, String password) loginclick,
+    required TResult Function() logoutclick,
   }) {
     return passwdvisible();
   }
@@ -241,6 +254,7 @@ class _$Passwdvisible implements Passwdvisible {
     TResult Function()? initialize,
     TResult Function()? passwdvisible,
     TResult Function(String username, String password)? loginclick,
+    TResult Function()? logoutclick,
   }) {
     return passwdvisible?.call();
   }
@@ -251,6 +265,7 @@ class _$Passwdvisible implements Passwdvisible {
     TResult Function()? initialize,
     TResult Function()? passwdvisible,
     TResult Function(String username, String password)? loginclick,
+    TResult Function()? logoutclick,
     required TResult orElse(),
   }) {
     if (passwdvisible != null) {
@@ -265,6 +280,7 @@ class _$Passwdvisible implements Passwdvisible {
     required TResult Function(Initialize value) initialize,
     required TResult Function(Passwdvisible value) passwdvisible,
     required TResult Function(Loginclick value) loginclick,
+    required TResult Function(Logoutclick value) logoutclick,
   }) {
     return passwdvisible(this);
   }
@@ -275,6 +291,7 @@ class _$Passwdvisible implements Passwdvisible {
     TResult Function(Initialize value)? initialize,
     TResult Function(Passwdvisible value)? passwdvisible,
     TResult Function(Loginclick value)? loginclick,
+    TResult Function(Logoutclick value)? logoutclick,
   }) {
     return passwdvisible?.call(this);
   }
@@ -285,6 +302,7 @@ class _$Passwdvisible implements Passwdvisible {
     TResult Function(Initialize value)? initialize,
     TResult Function(Passwdvisible value)? passwdvisible,
     TResult Function(Loginclick value)? loginclick,
+    TResult Function(Logoutclick value)? logoutclick,
     required TResult orElse(),
   }) {
     if (passwdvisible != null) {
@@ -375,6 +393,7 @@ class _$Loginclick implements Loginclick {
     required TResult Function() initialize,
     required TResult Function() passwdvisible,
     required TResult Function(String username, String password) loginclick,
+    required TResult Function() logoutclick,
   }) {
     return loginclick(username, password);
   }
@@ -385,6 +404,7 @@ class _$Loginclick implements Loginclick {
     TResult Function()? initialize,
     TResult Function()? passwdvisible,
     TResult Function(String username, String password)? loginclick,
+    TResult Function()? logoutclick,
   }) {
     return loginclick?.call(username, password);
   }
@@ -395,6 +415,7 @@ class _$Loginclick implements Loginclick {
     TResult Function()? initialize,
     TResult Function()? passwdvisible,
     TResult Function(String username, String password)? loginclick,
+    TResult Function()? logoutclick,
     required TResult orElse(),
   }) {
     if (loginclick != null) {
@@ -409,6 +430,7 @@ class _$Loginclick implements Loginclick {
     required TResult Function(Initialize value) initialize,
     required TResult Function(Passwdvisible value) passwdvisible,
     required TResult Function(Loginclick value) loginclick,
+    required TResult Function(Logoutclick value) logoutclick,
   }) {
     return loginclick(this);
   }
@@ -419,6 +441,7 @@ class _$Loginclick implements Loginclick {
     TResult Function(Initialize value)? initialize,
     TResult Function(Passwdvisible value)? passwdvisible,
     TResult Function(Loginclick value)? loginclick,
+    TResult Function(Logoutclick value)? logoutclick,
   }) {
     return loginclick?.call(this);
   }
@@ -429,6 +452,7 @@ class _$Loginclick implements Loginclick {
     TResult Function(Initialize value)? initialize,
     TResult Function(Passwdvisible value)? passwdvisible,
     TResult Function(Loginclick value)? loginclick,
+    TResult Function(Logoutclick value)? logoutclick,
     required TResult orElse(),
   }) {
     if (loginclick != null) {
@@ -451,11 +475,128 @@ abstract class Loginclick implements LoginEvent {
 }
 
 /// @nodoc
+abstract class _$$LogoutclickCopyWith<$Res> {
+  factory _$$LogoutclickCopyWith(
+          _$Logoutclick value, $Res Function(_$Logoutclick) then) =
+      __$$LogoutclickCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LogoutclickCopyWithImpl<$Res> extends _$LoginEventCopyWithImpl<$Res>
+    implements _$$LogoutclickCopyWith<$Res> {
+  __$$LogoutclickCopyWithImpl(
+      _$Logoutclick _value, $Res Function(_$Logoutclick) _then)
+      : super(_value, (v) => _then(v as _$Logoutclick));
+
+  @override
+  _$Logoutclick get _value => super._value as _$Logoutclick;
+}
+
+/// @nodoc
+
+class _$Logoutclick implements Logoutclick {
+  const _$Logoutclick();
+
+  @override
+  String toString() {
+    return 'LoginEvent.logoutclick()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$Logoutclick);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function() passwdvisible,
+    required TResult Function(String username, String password) loginclick,
+    required TResult Function() logoutclick,
+  }) {
+    return logoutclick();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function()? passwdvisible,
+    TResult Function(String username, String password)? loginclick,
+    TResult Function()? logoutclick,
+  }) {
+    return logoutclick?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function()? passwdvisible,
+    TResult Function(String username, String password)? loginclick,
+    TResult Function()? logoutclick,
+    required TResult orElse(),
+  }) {
+    if (logoutclick != null) {
+      return logoutclick();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initialize value) initialize,
+    required TResult Function(Passwdvisible value) passwdvisible,
+    required TResult Function(Loginclick value) loginclick,
+    required TResult Function(Logoutclick value) logoutclick,
+  }) {
+    return logoutclick(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initialize value)? initialize,
+    TResult Function(Passwdvisible value)? passwdvisible,
+    TResult Function(Loginclick value)? loginclick,
+    TResult Function(Logoutclick value)? logoutclick,
+  }) {
+    return logoutclick?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initialize value)? initialize,
+    TResult Function(Passwdvisible value)? passwdvisible,
+    TResult Function(Loginclick value)? loginclick,
+    TResult Function(Logoutclick value)? logoutclick,
+    required TResult orElse(),
+  }) {
+    if (logoutclick != null) {
+      return logoutclick(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Logoutclick implements LoginEvent {
+  const factory Logoutclick() = _$Logoutclick;
+}
+
+/// @nodoc
 mixin _$LoginState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
   bool get isVisible => throw _privateConstructorUsedError;
   LoginResponse? get loginresultData => throw _privateConstructorUsedError;
+  bool get isLogout => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LoginStateCopyWith<LoginState> get copyWith =>
@@ -471,7 +612,8 @@ abstract class $LoginStateCopyWith<$Res> {
       {bool isLoading,
       bool isError,
       bool isVisible,
-      LoginResponse? loginresultData});
+      LoginResponse? loginresultData,
+      bool isLogout});
 }
 
 /// @nodoc
@@ -488,6 +630,7 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
     Object? isError = freezed,
     Object? isVisible = freezed,
     Object? loginresultData = freezed,
+    Object? isLogout = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -506,6 +649,10 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
           ? _value.loginresultData
           : loginresultData // ignore: cast_nullable_to_non_nullable
               as LoginResponse?,
+      isLogout: isLogout == freezed
+          ? _value.isLogout
+          : isLogout // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -521,7 +668,8 @@ abstract class _$$_LoginStateCopyWith<$Res>
       {bool isLoading,
       bool isError,
       bool isVisible,
-      LoginResponse? loginresultData});
+      LoginResponse? loginresultData,
+      bool isLogout});
 }
 
 /// @nodoc
@@ -540,6 +688,7 @@ class __$$_LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
     Object? isError = freezed,
     Object? isVisible = freezed,
     Object? loginresultData = freezed,
+    Object? isLogout = freezed,
   }) {
     return _then(_$_LoginState(
       isLoading: isLoading == freezed
@@ -558,6 +707,10 @@ class __$$_LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
           ? _value.loginresultData
           : loginresultData // ignore: cast_nullable_to_non_nullable
               as LoginResponse?,
+      isLogout: isLogout == freezed
+          ? _value.isLogout
+          : isLogout // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -569,7 +722,8 @@ class _$_LoginState implements _LoginState {
       {required this.isLoading,
       required this.isError,
       required this.isVisible,
-      required this.loginresultData});
+      required this.loginresultData,
+      required this.isLogout});
 
   @override
   final bool isLoading;
@@ -579,10 +733,12 @@ class _$_LoginState implements _LoginState {
   final bool isVisible;
   @override
   final LoginResponse? loginresultData;
+  @override
+  final bool isLogout;
 
   @override
   String toString() {
-    return 'LoginState(isLoading: $isLoading, isError: $isError, isVisible: $isVisible, loginresultData: $loginresultData)';
+    return 'LoginState(isLoading: $isLoading, isError: $isError, isVisible: $isVisible, loginresultData: $loginresultData, isLogout: $isLogout)';
   }
 
   @override
@@ -594,7 +750,8 @@ class _$_LoginState implements _LoginState {
             const DeepCollectionEquality().equals(other.isError, isError) &&
             const DeepCollectionEquality().equals(other.isVisible, isVisible) &&
             const DeepCollectionEquality()
-                .equals(other.loginresultData, loginresultData));
+                .equals(other.loginresultData, loginresultData) &&
+            const DeepCollectionEquality().equals(other.isLogout, isLogout));
   }
 
   @override
@@ -603,7 +760,8 @@ class _$_LoginState implements _LoginState {
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(isError),
       const DeepCollectionEquality().hash(isVisible),
-      const DeepCollectionEquality().hash(loginresultData));
+      const DeepCollectionEquality().hash(loginresultData),
+      const DeepCollectionEquality().hash(isLogout));
 
   @JsonKey(ignore: true)
   @override
@@ -616,7 +774,8 @@ abstract class _LoginState implements LoginState {
       {required final bool isLoading,
       required final bool isError,
       required final bool isVisible,
-      required final LoginResponse? loginresultData}) = _$_LoginState;
+      required final LoginResponse? loginresultData,
+      required final bool isLogout}) = _$_LoginState;
 
   @override
   bool get isLoading;
@@ -626,6 +785,8 @@ abstract class _LoginState implements LoginState {
   bool get isVisible;
   @override
   LoginResponse? get loginresultData;
+  @override
+  bool get isLogout;
   @override
   @JsonKey(ignore: true)
   _$$_LoginStateCopyWith<_$_LoginState> get copyWith =>

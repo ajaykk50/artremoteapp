@@ -40,10 +40,12 @@ class TopicImpl extends TopicService {
         //log(downloadslist[1].topicName.toString());
         return Right(downloadslist);
       } else {
+        // print('aaaaaaaaaakkkkkkk');
+
         return const Left(MainFailure.serverFailure());
       }
     } catch (e) {
-      log(e.toString());
+      // log(e.toString());
       return const Left(MainFailure.clientFailure());
     }
   }

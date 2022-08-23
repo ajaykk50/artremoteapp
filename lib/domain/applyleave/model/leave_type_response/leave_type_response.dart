@@ -6,18 +6,19 @@ part 'leave_type_response.g.dart';
 class LeaveTypeResponse {
   @JsonKey(name: 'id')
   String? id;
-  @JsonKey(name: 'dept_name')
-  String? deptName;
-  @JsonKey(name: 'status')
-  String? status;
-  @JsonKey(name: 'message')
-  String? message;
+  @JsonKey(name: 'name')
+  String? name;
+  @JsonKey(name: 'total')
+  String? total;
+  @JsonKey(name: 'used')
+  String? used;
 
-  LeaveTypeResponse({this.id, this.deptName, this.status, this.message});
+  LeaveTypeResponse({this.id, this.name, this.total, this.used});
 
   factory LeaveTypeResponse.fromJson(Map<String, dynamic> json) {
     return _$LeaveTypeResponseFromJson(json);
   }
 
   Map<String, dynamic> toJson() => _$LeaveTypeResponseToJson(this);
+  void toList() {}
 }

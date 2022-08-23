@@ -8,8 +8,8 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../../../application/helpdesk/helpdesk_bloc.dart' as _i12;
-import '../../../application/leavetype/leave_type_bloc.dart' as _i13;
+import '../../../application/applyleave/applyleave_bloc.dart' as _i12;
+import '../../../application/helpdesk/helpdesk_bloc.dart' as _i13;
 import '../../../application/login/login_bloc.dart' as _i14;
 import '../../../application/punch/punch_bloc.dart' as _i15;
 import '../../../application/splash/splash_bloc.dart' as _i9;
@@ -33,10 +33,10 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i7.PunchService>(() => _i8.PunchImpl());
   gh.factory<_i9.SplashBloc>(() => _i9.SplashBloc());
   gh.lazySingleton<_i10.TopicService>(() => _i11.TopicImpl());
-  gh.factory<_i12.HelpdeskBloc>(
-      () => _i12.HelpdeskBloc(get<_i10.TopicService>()));
-  gh.factory<_i13.LeaveTypeBloc>(
-      () => _i13.LeaveTypeBloc(get<_i3.LeaveTypeService>()));
+  gh.factory<_i12.ApplyleaveBloc>(
+      () => _i12.ApplyleaveBloc(get<_i3.LeaveTypeService>()));
+  gh.factory<_i13.HelpdeskBloc>(
+      () => _i13.HelpdeskBloc(get<_i10.TopicService>()));
   gh.factory<_i14.LoginBloc>(() => _i14.LoginBloc(get<_i5.LoginService>()));
   gh.factory<_i15.PunchBloc>(() => _i15.PunchBloc(get<_i7.PunchService>()));
   return get;

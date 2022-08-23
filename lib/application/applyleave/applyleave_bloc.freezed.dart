@@ -35,17 +35,17 @@ mixin _$ApplyleaveEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Getleave value) getleavetype,
+    required TResult Function(Getleave value) getleavetype,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Getleave value)? getleavetype,
+    TResult Function(Getleave value)? getleavetype,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Getleave value)? getleavetype,
+    TResult Function(Getleave value)? getleavetype,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -86,31 +86,29 @@ class _$ApplyleaveEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$_GetleaveCopyWith<$Res>
+abstract class _$$GetleaveCopyWith<$Res>
     implements $ApplyleaveEventCopyWith<$Res> {
-  factory _$$_GetleaveCopyWith(
-          _$_Getleave value, $Res Function(_$_Getleave) then) =
-      __$$_GetleaveCopyWithImpl<$Res>;
+  factory _$$GetleaveCopyWith(
+          _$Getleave value, $Res Function(_$Getleave) then) =
+      __$$GetleaveCopyWithImpl<$Res>;
   @override
   $Res call({String token});
 }
 
 /// @nodoc
-class __$$_GetleaveCopyWithImpl<$Res>
-    extends _$ApplyleaveEventCopyWithImpl<$Res>
-    implements _$$_GetleaveCopyWith<$Res> {
-  __$$_GetleaveCopyWithImpl(
-      _$_Getleave _value, $Res Function(_$_Getleave) _then)
-      : super(_value, (v) => _then(v as _$_Getleave));
+class __$$GetleaveCopyWithImpl<$Res> extends _$ApplyleaveEventCopyWithImpl<$Res>
+    implements _$$GetleaveCopyWith<$Res> {
+  __$$GetleaveCopyWithImpl(_$Getleave _value, $Res Function(_$Getleave) _then)
+      : super(_value, (v) => _then(v as _$Getleave));
 
   @override
-  _$_Getleave get _value => super._value as _$_Getleave;
+  _$Getleave get _value => super._value as _$Getleave;
 
   @override
   $Res call({
     Object? token = freezed,
   }) {
-    return _then(_$_Getleave(
+    return _then(_$Getleave(
       token: token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
@@ -121,8 +119,8 @@ class __$$_GetleaveCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Getleave implements _Getleave {
-  const _$_Getleave({required this.token});
+class _$Getleave implements Getleave {
+  const _$Getleave({required this.token});
 
   @override
   final String token;
@@ -136,7 +134,7 @@ class _$_Getleave implements _Getleave {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Getleave &&
+            other is _$Getleave &&
             const DeepCollectionEquality().equals(other.token, token));
   }
 
@@ -146,8 +144,8 @@ class _$_Getleave implements _Getleave {
 
   @JsonKey(ignore: true)
   @override
-  _$$_GetleaveCopyWith<_$_Getleave> get copyWith =>
-      __$$_GetleaveCopyWithImpl<_$_Getleave>(this, _$identity);
+  _$$GetleaveCopyWith<_$Getleave> get copyWith =>
+      __$$GetleaveCopyWithImpl<_$Getleave>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -180,7 +178,7 @@ class _$_Getleave implements _Getleave {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Getleave value) getleavetype,
+    required TResult Function(Getleave value) getleavetype,
   }) {
     return getleavetype(this);
   }
@@ -188,7 +186,7 @@ class _$_Getleave implements _Getleave {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Getleave value)? getleavetype,
+    TResult Function(Getleave value)? getleavetype,
   }) {
     return getleavetype?.call(this);
   }
@@ -196,7 +194,7 @@ class _$_Getleave implements _Getleave {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Getleave value)? getleavetype,
+    TResult Function(Getleave value)? getleavetype,
     required TResult orElse(),
   }) {
     if (getleavetype != null) {
@@ -206,71 +204,25 @@ class _$_Getleave implements _Getleave {
   }
 }
 
-abstract class _Getleave implements ApplyleaveEvent {
-  const factory _Getleave({required final String token}) = _$_Getleave;
+abstract class Getleave implements ApplyleaveEvent {
+  const factory Getleave({required final String token}) = _$Getleave;
 
   @override
   String get token;
   @override
   @JsonKey(ignore: true)
-  _$$_GetleaveCopyWith<_$_Getleave> get copyWith =>
+  _$$GetleaveCopyWith<_$Getleave> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$ApplyleaveState {
   bool get isLoading => throw _privateConstructorUsedError;
-  bool get isError => throw _privateConstructorUsedError;
+  bool get isServerError => throw _privateConstructorUsedError;
+  bool get isClientError => throw _privateConstructorUsedError;
   List<LeaveTypeResponse> get leavetyperesponse =>
       throw _privateConstructorUsedError;
   List<LeaveTypeResponse> get response => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            bool isLoading,
-            bool isError,
-            List<LeaveTypeResponse> leavetyperesponse,
-            List<LeaveTypeResponse> response)
-        getleave,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            bool isLoading,
-            bool isError,
-            List<LeaveTypeResponse> leavetyperesponse,
-            List<LeaveTypeResponse> response)?
-        getleave,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            bool isLoading,
-            bool isError,
-            List<LeaveTypeResponse> leavetyperesponse,
-            List<LeaveTypeResponse> response)?
-        getleave,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Getleave value) getleave,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Getleave value)? getleave,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Getleave value)? getleave,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ApplyleaveStateCopyWith<ApplyleaveState> get copyWith =>
@@ -284,7 +236,8 @@ abstract class $ApplyleaveStateCopyWith<$Res> {
       _$ApplyleaveStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
-      bool isError,
+      bool isServerError,
+      bool isClientError,
       List<LeaveTypeResponse> leavetyperesponse,
       List<LeaveTypeResponse> response});
 }
@@ -301,7 +254,8 @@ class _$ApplyleaveStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? isError = freezed,
+    Object? isServerError = freezed,
+    Object? isClientError = freezed,
     Object? leavetyperesponse = freezed,
     Object? response = freezed,
   }) {
@@ -310,9 +264,13 @@ class _$ApplyleaveStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isError: isError == freezed
-          ? _value.isError
-          : isError // ignore: cast_nullable_to_non_nullable
+      isServerError: isServerError == freezed
+          ? _value.isServerError
+          : isServerError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isClientError: isClientError == freezed
+          ? _value.isClientError
+          : isClientError // ignore: cast_nullable_to_non_nullable
               as bool,
       leavetyperesponse: leavetyperesponse == freezed
           ? _value.leavetyperesponse
@@ -327,43 +285,51 @@ class _$ApplyleaveStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$GetleaveCopyWith<$Res>
+abstract class _$$_GetleaveCopyWith<$Res>
     implements $ApplyleaveStateCopyWith<$Res> {
-  factory _$$GetleaveCopyWith(
-          _$Getleave value, $Res Function(_$Getleave) then) =
-      __$$GetleaveCopyWithImpl<$Res>;
+  factory _$$_GetleaveCopyWith(
+          _$_Getleave value, $Res Function(_$_Getleave) then) =
+      __$$_GetleaveCopyWithImpl<$Res>;
   @override
   $Res call(
       {bool isLoading,
-      bool isError,
+      bool isServerError,
+      bool isClientError,
       List<LeaveTypeResponse> leavetyperesponse,
       List<LeaveTypeResponse> response});
 }
 
 /// @nodoc
-class __$$GetleaveCopyWithImpl<$Res> extends _$ApplyleaveStateCopyWithImpl<$Res>
-    implements _$$GetleaveCopyWith<$Res> {
-  __$$GetleaveCopyWithImpl(_$Getleave _value, $Res Function(_$Getleave) _then)
-      : super(_value, (v) => _then(v as _$Getleave));
+class __$$_GetleaveCopyWithImpl<$Res>
+    extends _$ApplyleaveStateCopyWithImpl<$Res>
+    implements _$$_GetleaveCopyWith<$Res> {
+  __$$_GetleaveCopyWithImpl(
+      _$_Getleave _value, $Res Function(_$_Getleave) _then)
+      : super(_value, (v) => _then(v as _$_Getleave));
 
   @override
-  _$Getleave get _value => super._value as _$Getleave;
+  _$_Getleave get _value => super._value as _$_Getleave;
 
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? isError = freezed,
+    Object? isServerError = freezed,
+    Object? isClientError = freezed,
     Object? leavetyperesponse = freezed,
     Object? response = freezed,
   }) {
-    return _then(_$Getleave(
+    return _then(_$_Getleave(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isError: isError == freezed
-          ? _value.isError
-          : isError // ignore: cast_nullable_to_non_nullable
+      isServerError: isServerError == freezed
+          ? _value.isServerError
+          : isServerError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isClientError: isClientError == freezed
+          ? _value.isClientError
+          : isClientError // ignore: cast_nullable_to_non_nullable
               as bool,
       leavetyperesponse: leavetyperesponse == freezed
           ? _value._leavetyperesponse
@@ -379,10 +345,11 @@ class __$$GetleaveCopyWithImpl<$Res> extends _$ApplyleaveStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Getleave implements Getleave {
-  const _$Getleave(
+class _$_Getleave implements _Getleave {
+  const _$_Getleave(
       {required this.isLoading,
-      required this.isError,
+      required this.isServerError,
+      required this.isClientError,
       required final List<LeaveTypeResponse> leavetyperesponse,
       required final List<LeaveTypeResponse> response})
       : _leavetyperesponse = leavetyperesponse,
@@ -391,7 +358,9 @@ class _$Getleave implements Getleave {
   @override
   final bool isLoading;
   @override
-  final bool isError;
+  final bool isServerError;
+  @override
+  final bool isClientError;
   final List<LeaveTypeResponse> _leavetyperesponse;
   @override
   List<LeaveTypeResponse> get leavetyperesponse {
@@ -408,16 +377,19 @@ class _$Getleave implements Getleave {
 
   @override
   String toString() {
-    return 'ApplyleaveState.getleave(isLoading: $isLoading, isError: $isError, leavetyperesponse: $leavetyperesponse, response: $response)';
+    return 'ApplyleaveState(isLoading: $isLoading, isServerError: $isServerError, isClientError: $isClientError, leavetyperesponse: $leavetyperesponse, response: $response)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Getleave &&
+            other is _$_Getleave &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
-            const DeepCollectionEquality().equals(other.isError, isError) &&
+            const DeepCollectionEquality()
+                .equals(other.isServerError, isServerError) &&
+            const DeepCollectionEquality()
+                .equals(other.isClientError, isClientError) &&
             const DeepCollectionEquality()
                 .equals(other._leavetyperesponse, _leavetyperesponse) &&
             const DeepCollectionEquality().equals(other._response, _response));
@@ -427,104 +399,37 @@ class _$Getleave implements Getleave {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(isLoading),
-      const DeepCollectionEquality().hash(isError),
+      const DeepCollectionEquality().hash(isServerError),
+      const DeepCollectionEquality().hash(isClientError),
       const DeepCollectionEquality().hash(_leavetyperesponse),
       const DeepCollectionEquality().hash(_response));
 
   @JsonKey(ignore: true)
   @override
-  _$$GetleaveCopyWith<_$Getleave> get copyWith =>
-      __$$GetleaveCopyWithImpl<_$Getleave>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            bool isLoading,
-            bool isError,
-            List<LeaveTypeResponse> leavetyperesponse,
-            List<LeaveTypeResponse> response)
-        getleave,
-  }) {
-    return getleave(isLoading, isError, leavetyperesponse, response);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            bool isLoading,
-            bool isError,
-            List<LeaveTypeResponse> leavetyperesponse,
-            List<LeaveTypeResponse> response)?
-        getleave,
-  }) {
-    return getleave?.call(isLoading, isError, leavetyperesponse, response);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            bool isLoading,
-            bool isError,
-            List<LeaveTypeResponse> leavetyperesponse,
-            List<LeaveTypeResponse> response)?
-        getleave,
-    required TResult orElse(),
-  }) {
-    if (getleave != null) {
-      return getleave(isLoading, isError, leavetyperesponse, response);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Getleave value) getleave,
-  }) {
-    return getleave(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Getleave value)? getleave,
-  }) {
-    return getleave?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Getleave value)? getleave,
-    required TResult orElse(),
-  }) {
-    if (getleave != null) {
-      return getleave(this);
-    }
-    return orElse();
-  }
+  _$$_GetleaveCopyWith<_$_Getleave> get copyWith =>
+      __$$_GetleaveCopyWithImpl<_$_Getleave>(this, _$identity);
 }
 
-abstract class Getleave implements ApplyleaveState {
-  const factory Getleave(
+abstract class _Getleave implements ApplyleaveState {
+  const factory _Getleave(
       {required final bool isLoading,
-      required final bool isError,
+      required final bool isServerError,
+      required final bool isClientError,
       required final List<LeaveTypeResponse> leavetyperesponse,
-      required final List<LeaveTypeResponse> response}) = _$Getleave;
+      required final List<LeaveTypeResponse> response}) = _$_Getleave;
 
   @override
   bool get isLoading;
   @override
-  bool get isError;
+  bool get isServerError;
+  @override
+  bool get isClientError;
   @override
   List<LeaveTypeResponse> get leavetyperesponse;
   @override
   List<LeaveTypeResponse> get response;
   @override
   @JsonKey(ignore: true)
-  _$$GetleaveCopyWith<_$Getleave> get copyWith =>
+  _$$_GetleaveCopyWith<_$_Getleave> get copyWith =>
       throw _privateConstructorUsedError;
 }

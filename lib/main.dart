@@ -3,9 +3,9 @@ import 'package:art_remoteapp/presentation/splash_page/screen_splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'application/applyleave/applyleave_bloc.dart';
 import 'application/helpdesk/helpdesk_bloc.dart';
 import 'application/imageselection/image_selection_bloc.dart';
-import 'application/leavetype/leave_type_bloc.dart';
 import 'application/login/login_bloc.dart';
 import 'application/preference/preference_bloc.dart';
 import 'application/punch/punch_bloc.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (ctx) => PreferenceBloc()),
         BlocProvider(create: (ctx) => getIt<HelpdeskBloc>()),
         BlocProvider(create: (ctx) => ImageSelectionBloc()),
-        BlocProvider(create: (ctx) => getIt<LeaveTypeBloc>()),
+        BlocProvider(create: (ctx) => getIt<ApplyleaveBloc>()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

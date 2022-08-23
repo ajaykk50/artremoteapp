@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:art_remoteapp/domain/applyleave/leavetype_service.dart';
@@ -19,24 +20,21 @@ class LeaveTypeImpl extends LeaveTypeService {
         ApiEndPoints.leavetype,
         options: Options(headers: {"authorization": "Bearer $token"}),
       );
-      log(response.toString());
-      var downloadslist;
-
+      List<LeaveTypeResponse> _list = [];
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // if (response.data[0] == null) {
-        //   log('working......');
-        //   downloadslist = [response.data].toList();
-        // } else {
-        // downloadslist = (response.data[0] as List).map((e) {
-        //   return LeaveTypeResponse.fromJson(e);
-        // }).toList();
-        downloadslist = response.data;
-        // }
-
-        log(downloadslist);
-
-        //log(downloadslist[1].topicName.toString());
-        return Right(downloadslist);
+        if (response.data[0] == null) {
+          if (response.data['message'] ==
+              'Invalid or expired authorization token') {
+            return const Left(MainFailure.serverFailure());
+          } else {
+            return const Left(MainFailure.serverFailure());
+          }
+        } else {
+          final leaveresponse = (response.data as List).map((e) {
+            return LeaveTypeResponse.fromJson(e);
+          }).toList();
+          return Right(leaveresponse);
+        }
       } else {
         return const Left(MainFailure.serverFailure());
       }

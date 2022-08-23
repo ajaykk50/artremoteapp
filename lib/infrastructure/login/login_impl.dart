@@ -8,6 +8,7 @@ import 'package:art_remoteapp/domain/core/failures/main_failure.dart';
 import 'package:art_remoteapp/domain/login/login_service.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: LoginService)
@@ -35,7 +36,9 @@ class LoginImpl implements LoginService {
         return const Left(MainFailure.serverFailure());
       }
     } catch (e) {
-      log(e.toString());
+      //log(e.toString());
+      //  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+
       return const Left(MainFailure.clientFailure());
     }
   }

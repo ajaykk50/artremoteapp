@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:art_remoteapp/domain/applyleave/model/leave_type_response/leave_type_response.dart';
 import 'package:art_remoteapp/domain/core/failures/main_failure.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../domain/applyleave/leavetype_service.dart';
 
@@ -9,31 +12,53 @@ part 'applyleave_event.dart';
 part 'applyleave_state.dart';
 part 'applyleave_bloc.freezed.dart';
 
+@injectable
 class ApplyleaveBloc extends Bloc<ApplyleaveEvent, ApplyleaveState> {
   final LeaveTypeService leavetypeservice;
 
   ApplyleaveBloc(this.leavetypeservice) : super(ApplyleaveState.initial()) {
-    on<_Getleave>((event, emit) async {
-      emit(const ApplyleaveState.getleave(
+    on<Getleave>((event, emit) async {
+      //log('cccccc');
+      emit(const ApplyleaveState(
           isLoading: true,
-          isError: false,
+          isServerError: false,
+          isClientError: false,
           leavetyperesponse: [],
           response: []));
       final result = await leavetypeservice.getLeaveType(token: event.token);
       final applystate = result.fold(
         (MainFailure f) {
-          const ApplyleaveState.getleave(
-              isLoading: false,
-              isError: true,
-              leavetyperesponse: [],
-              response: []);
+          if (f is ServerFailure) {
+            return const ApplyleaveState(
+                isLoading: false,
+                isServerError: true,
+                isClientError: false,
+                leavetyperesponse: [],
+                response: []);
+          } else {
+            return const ApplyleaveState(
+                isLoading: false,
+                isServerError: false,
+                isClientError: true,
+                leavetyperesponse: [],
+                response: []);
+          }
+          // log('bbbbb');
+          // return const ApplyleaveState(
+          //     isLoading: false,
+          //     isServerError: false,
+          //     isClientError: true,
+          //     leavetyperesponse: [],
+          //     response: []);
         },
         (List<LeaveTypeResponse> resp) {
-          ApplyleaveState.getleave(
+          log('dddd');
+          return ApplyleaveState(
               isLoading: false,
-              isError: true,
-              leavetyperesponse: state.leavetyperesponse,
-              response: resp);
+              isServerError: false,
+              isClientError: false,
+              leavetyperesponse: resp,
+              response: []);
         },
       );
       emit(applystate);

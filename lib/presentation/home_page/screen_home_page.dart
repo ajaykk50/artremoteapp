@@ -38,8 +38,8 @@ class ScreenHomePage extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/home.png',
-              width: 120,
-              height: 120,
+              width: 100,
+              height: 100,
             ),
             kHeight,
             Container(
@@ -98,7 +98,6 @@ class ScreenHomePage extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          print("aaaaaaaaa");
                           Navigator.push(
                               context,
                               MaterialPageRoute(
