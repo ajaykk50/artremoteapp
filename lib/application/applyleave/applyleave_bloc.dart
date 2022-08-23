@@ -63,5 +63,25 @@ class ApplyleaveBloc extends Bloc<ApplyleaveEvent, ApplyleaveState> {
       );
       emit(applystate);
     });
+
+    on<Submitleave>((event, emit) async {
+      emit(ApplyleaveState(
+          isLoading: true,
+          isServerError: false,
+          isClientError: false,
+          leavetyperesponse: state.leavetyperesponse,
+          response: []));
+
+      final result = await leavetypeservice.applyLeave(
+          token: event.token,
+          ccMail: event.ccMail,
+          comment: event.comment,
+          dates: event.dates,
+          leaveType: event.leaveType,
+          leaveDuration: event.leaveDuration);
+
+      final applystate =
+          result.fold((MainFailure f) {}, (List<LeaveTypeResponse> resp) {});
+    });
   }
 }

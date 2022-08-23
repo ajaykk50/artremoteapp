@@ -20,32 +20,44 @@ mixin _$ApplyleaveEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String token) getleavetype,
+    required TResult Function(String token, String ccMail, String comment,
+            List<DateTime> dates, String leaveType, String leaveDuration)
+        submitleave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String token)? getleavetype,
+    TResult Function(String token, String ccMail, String comment,
+            List<DateTime> dates, String leaveType, String leaveDuration)?
+        submitleave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String token)? getleavetype,
+    TResult Function(String token, String ccMail, String comment,
+            List<DateTime> dates, String leaveType, String leaveDuration)?
+        submitleave,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Getleave value) getleavetype,
+    required TResult Function(Submitleave value) submitleave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Getleave value)? getleavetype,
+    TResult Function(Submitleave value)? submitleave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Getleave value)? getleavetype,
+    TResult Function(Submitleave value)? submitleave,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -151,6 +163,9 @@ class _$Getleave implements Getleave {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String token) getleavetype,
+    required TResult Function(String token, String ccMail, String comment,
+            List<DateTime> dates, String leaveType, String leaveDuration)
+        submitleave,
   }) {
     return getleavetype(token);
   }
@@ -159,6 +174,9 @@ class _$Getleave implements Getleave {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String token)? getleavetype,
+    TResult Function(String token, String ccMail, String comment,
+            List<DateTime> dates, String leaveType, String leaveDuration)?
+        submitleave,
   }) {
     return getleavetype?.call(token);
   }
@@ -167,6 +185,9 @@ class _$Getleave implements Getleave {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String token)? getleavetype,
+    TResult Function(String token, String ccMail, String comment,
+            List<DateTime> dates, String leaveType, String leaveDuration)?
+        submitleave,
     required TResult orElse(),
   }) {
     if (getleavetype != null) {
@@ -179,6 +200,7 @@ class _$Getleave implements Getleave {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Getleave value) getleavetype,
+    required TResult Function(Submitleave value) submitleave,
   }) {
     return getleavetype(this);
   }
@@ -187,6 +209,7 @@ class _$Getleave implements Getleave {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Getleave value)? getleavetype,
+    TResult Function(Submitleave value)? submitleave,
   }) {
     return getleavetype?.call(this);
   }
@@ -195,6 +218,7 @@ class _$Getleave implements Getleave {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Getleave value)? getleavetype,
+    TResult Function(Submitleave value)? submitleave,
     required TResult orElse(),
   }) {
     if (getleavetype != null) {
@@ -212,6 +236,228 @@ abstract class Getleave implements ApplyleaveEvent {
   @override
   @JsonKey(ignore: true)
   _$$GetleaveCopyWith<_$Getleave> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SubmitleaveCopyWith<$Res>
+    implements $ApplyleaveEventCopyWith<$Res> {
+  factory _$$SubmitleaveCopyWith(
+          _$Submitleave value, $Res Function(_$Submitleave) then) =
+      __$$SubmitleaveCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String token,
+      String ccMail,
+      String comment,
+      List<DateTime> dates,
+      String leaveType,
+      String leaveDuration});
+}
+
+/// @nodoc
+class __$$SubmitleaveCopyWithImpl<$Res>
+    extends _$ApplyleaveEventCopyWithImpl<$Res>
+    implements _$$SubmitleaveCopyWith<$Res> {
+  __$$SubmitleaveCopyWithImpl(
+      _$Submitleave _value, $Res Function(_$Submitleave) _then)
+      : super(_value, (v) => _then(v as _$Submitleave));
+
+  @override
+  _$Submitleave get _value => super._value as _$Submitleave;
+
+  @override
+  $Res call({
+    Object? token = freezed,
+    Object? ccMail = freezed,
+    Object? comment = freezed,
+    Object? dates = freezed,
+    Object? leaveType = freezed,
+    Object? leaveDuration = freezed,
+  }) {
+    return _then(_$Submitleave(
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
+      ccMail: ccMail == freezed
+          ? _value.ccMail
+          : ccMail // ignore: cast_nullable_to_non_nullable
+              as String,
+      comment: comment == freezed
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
+      dates: dates == freezed
+          ? _value._dates
+          : dates // ignore: cast_nullable_to_non_nullable
+              as List<DateTime>,
+      leaveType: leaveType == freezed
+          ? _value.leaveType
+          : leaveType // ignore: cast_nullable_to_non_nullable
+              as String,
+      leaveDuration: leaveDuration == freezed
+          ? _value.leaveDuration
+          : leaveDuration // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Submitleave implements Submitleave {
+  const _$Submitleave(
+      {required this.token,
+      required this.ccMail,
+      required this.comment,
+      required final List<DateTime> dates,
+      required this.leaveType,
+      required this.leaveDuration})
+      : _dates = dates;
+
+  @override
+  final String token;
+  @override
+  final String ccMail;
+  @override
+  final String comment;
+  final List<DateTime> _dates;
+  @override
+  List<DateTime> get dates {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_dates);
+  }
+
+  @override
+  final String leaveType;
+  @override
+  final String leaveDuration;
+
+  @override
+  String toString() {
+    return 'ApplyleaveEvent.submitleave(token: $token, ccMail: $ccMail, comment: $comment, dates: $dates, leaveType: $leaveType, leaveDuration: $leaveDuration)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Submitleave &&
+            const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality().equals(other.ccMail, ccMail) &&
+            const DeepCollectionEquality().equals(other.comment, comment) &&
+            const DeepCollectionEquality().equals(other._dates, _dates) &&
+            const DeepCollectionEquality().equals(other.leaveType, leaveType) &&
+            const DeepCollectionEquality()
+                .equals(other.leaveDuration, leaveDuration));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(ccMail),
+      const DeepCollectionEquality().hash(comment),
+      const DeepCollectionEquality().hash(_dates),
+      const DeepCollectionEquality().hash(leaveType),
+      const DeepCollectionEquality().hash(leaveDuration));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$SubmitleaveCopyWith<_$Submitleave> get copyWith =>
+      __$$SubmitleaveCopyWithImpl<_$Submitleave>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String token) getleavetype,
+    required TResult Function(String token, String ccMail, String comment,
+            List<DateTime> dates, String leaveType, String leaveDuration)
+        submitleave,
+  }) {
+    return submitleave(token, ccMail, comment, dates, leaveType, leaveDuration);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String token)? getleavetype,
+    TResult Function(String token, String ccMail, String comment,
+            List<DateTime> dates, String leaveType, String leaveDuration)?
+        submitleave,
+  }) {
+    return submitleave?.call(
+        token, ccMail, comment, dates, leaveType, leaveDuration);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String token)? getleavetype,
+    TResult Function(String token, String ccMail, String comment,
+            List<DateTime> dates, String leaveType, String leaveDuration)?
+        submitleave,
+    required TResult orElse(),
+  }) {
+    if (submitleave != null) {
+      return submitleave(
+          token, ccMail, comment, dates, leaveType, leaveDuration);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Getleave value) getleavetype,
+    required TResult Function(Submitleave value) submitleave,
+  }) {
+    return submitleave(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Getleave value)? getleavetype,
+    TResult Function(Submitleave value)? submitleave,
+  }) {
+    return submitleave?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Getleave value)? getleavetype,
+    TResult Function(Submitleave value)? submitleave,
+    required TResult orElse(),
+  }) {
+    if (submitleave != null) {
+      return submitleave(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Submitleave implements ApplyleaveEvent {
+  const factory Submitleave(
+      {required final String token,
+      required final String ccMail,
+      required final String comment,
+      required final List<DateTime> dates,
+      required final String leaveType,
+      required final String leaveDuration}) = _$Submitleave;
+
+  @override
+  String get token;
+  String get ccMail;
+  String get comment;
+  List<DateTime> get dates;
+  String get leaveType;
+  String get leaveDuration;
+  @override
+  @JsonKey(ignore: true)
+  _$$SubmitleaveCopyWith<_$Submitleave> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

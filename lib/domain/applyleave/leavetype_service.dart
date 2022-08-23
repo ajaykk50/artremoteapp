@@ -3,7 +3,13 @@ import 'package:art_remoteapp/domain/core/failures/main_failure.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class LeaveTypeService {
-  Future<Either<MainFailure, List<LeaveTypeResponse>>> getLeaveType({
-    required String token,
-  });
+  Future<Either<MainFailure, List<LeaveTypeResponse>>> getLeaveType(
+      {required String token});
+  Future<Either<MainFailure, List<LeaveTypeResponse>>> applyLeave(
+      {required String token,
+      required String ccMail,
+      required String comment,
+      required List<DateTime> dates,
+      required String leaveType,
+      required String leaveDuration});
 }

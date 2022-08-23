@@ -12,6 +12,8 @@ import '../../domain/core/api_end_points.dart';
 
 @LazySingleton(as: LeaveTypeService)
 class LeaveTypeImpl extends LeaveTypeService {
+  var sampleArray = [];
+
   @override
   Future<Either<MainFailure, List<LeaveTypeResponse>>> getLeaveType(
       {required String token}) async {
@@ -22,6 +24,57 @@ class LeaveTypeImpl extends LeaveTypeService {
       );
       List<LeaveTypeResponse> _list = [];
       if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response.data[0] == null) {
+          if (response.data['message'] ==
+              'Invalid or expired authorization token') {
+            return const Left(MainFailure.serverFailure());
+          } else {
+            return const Left(MainFailure.serverFailure());
+          }
+        } else {
+          final leaveresponse = (response.data as List).map((e) {
+            return LeaveTypeResponse.fromJson(e);
+          }).toList();
+          return Right(leaveresponse);
+        }
+      } else {
+        return const Left(MainFailure.serverFailure());
+      }
+    } catch (e) {
+      log(e.toString());
+      return const Left(MainFailure.clientFailure());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, List<LeaveTypeResponse>>> applyLeave(
+      {required String token,
+      required String ccMail,
+      required String comment,
+      required List<DateTime> dates,
+      required String leaveType,
+      required String leaveDuration}) async {
+    try {
+      for (int i = 0; i < dates.length; i++) {
+        var datesArray = {
+          "date": dates[i].toString(),
+          "duration_type": leaveDuration,
+        };
+        sampleArray.add(datesArray);
+      }
+      var params = {
+        "leave_type_id": leaveType,
+        "dates": sampleArray,
+        "cc": ccMail,
+        "comments": comment,
+      };
+
+      final Response response = await Dio(BaseOptions()).post(
+          ApiEndPoints.leaveapply,
+          options: Options(headers: {"authorization": "Bearer $token"}),
+          data: params);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        log(response.data);
         if (response.data[0] == null) {
           if (response.data['message'] ==
               'Invalid or expired authorization token') {

@@ -75,7 +75,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<Logoutclick>(((event, emit) {
       emit(const LoginState(
           isLoading: false,
-          isError: true,
+          isError: false,
           isVisible: false,
           loginresultData: null,
           isLogout: true));

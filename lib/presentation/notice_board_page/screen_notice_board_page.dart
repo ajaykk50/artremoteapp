@@ -1,27 +1,53 @@
+import 'dart:developer';
+
+import 'package:art_remoteapp/application/noticeboard/noticeboard_bloc.dart';
 import 'package:art_remoteapp/core/colors/colors.dart';
 import 'package:art_remoteapp/core/constants.dart';
+import 'package:art_remoteapp/domain/noticeboard/model/notice_board_response/notice_board_response.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../core/sessionmanager.dart';
+
+String token = "";
+SessionManager prefs = SessionManager();
 
 class ScreenNoticeBoardPage extends StatelessWidget {
   const ScreenNoticeBoardPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future<String> authToken = prefs.getAuthToken();
+      authToken.then((data) {
+        token = data.toString();
+        BlocProvider.of<NoticeboardBloc>(context)
+            .add(Getnotice(token: data.toString()));
+      }, onError: (e) {});
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: backgroundGreyColor,
-        title: Text("Notice Board"),
+        title: const Text("Notice Board"),
       ),
-      body: const SafeArea(child: NoticeList()),
+      body: BlocBuilder<NoticeboardBloc, NoticeboardState>(
+        builder: (context, state) {
+          return SafeArea(
+              child: NoticeList(
+            response: state.response,
+          ));
+        },
+      ),
     );
   }
 }
 
 class NoticeList extends StatelessWidget {
-  const NoticeList({
+  List<NoticeBoardResponse> response = [];
+
+  NoticeList({
     Key? key,
+    required this.response,
   }) : super(key: key);
 
   @override
@@ -37,7 +63,7 @@ class NoticeList extends StatelessWidget {
         child: ListView.separated(
             itemBuilder: (ctx, index) {
               return Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: kWhite,
@@ -46,26 +72,31 @@ class NoticeList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Title",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        Spacer(),
-                        Text(
-                          "22-05-2022",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ],
+                    Container(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        response[index].time.toString(),
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 10),
+                      ),
                     ),
-                    Text("Description", style: TextStyle(color: Colors.black))
+                    kHeight,
+                    Text(
+                      response[index].name.toString(),
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
+                    kHeight,
+                    Text(response[index].description.toString(),
+                        style: const TextStyle(color: Colors.black))
                   ],
                 ),
               );
             },
             separatorBuilder: (ctx, index) => kHeight20,
-            itemCount: 10),
+            itemCount: response.length),
       ),
     );
   }

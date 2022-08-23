@@ -7,4 +7,5 @@ class ApiEndPoints {
   static const helptopic = "$kBaseUrl/helpdesk/topic/";
   static const sendhelp = "$kBaseUrl/helpdesk";
   static const leavetype = "$kBaseUrl/leaves";
+  static const leaveapply = "$kBaseUrl/leaves/apply";
 }
