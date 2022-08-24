@@ -9,6 +9,7 @@ import 'application/imageselection/image_selection_bloc.dart';
 import 'application/login/login_bloc.dart';
 import 'application/noticeboard/noticeboard_bloc.dart';
 import 'application/preference/preference_bloc.dart';
+import 'application/profile/profile_bloc.dart';
 import 'application/punch/punch_bloc.dart';
 import 'application/splash/splash_bloc.dart';
 
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (ctx) => ImageSelectionBloc()),
         BlocProvider(create: (ctx) => getIt<ApplyleaveBloc>()),
         BlocProvider(create: (ctx) => getIt<NoticeboardBloc>()),
+        BlocProvider(create: (ctx) => getIt<ProfileBloc>()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:art_remoteapp/application/applyleave/applyleave_bloc.dart';
 import 'package:art_remoteapp/core/colors/colors.dart';
 import 'package:art_remoteapp/core/constants.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/sessionmanager.dart';
+import '../../core/utility.dart';
 import '../splash_page/screen_splash_page.dart';
 
 var items = ['Full day', 'Fornoon', 'Afternoon'];
@@ -57,13 +60,18 @@ class ScreenApplyLeavePage extends StatelessWidget {
           child: ListView(
             shrinkWrap: true,
             children: [
-              BlocBuilder<ApplyleaveBloc, ApplyleaveState>(
-                builder: (context, state) {
+              BlocConsumer<ApplyleaveBloc, ApplyleaveState>(
+                listener: (context, state) {
                   if (state.isServerError) {
-                    return const ErrorDialog();
+                    // showErrorDialog(context);
+                    Utility.getInstance().showErrorDialog(context);
                   } else if (state.isClientError) {
-                    return const ErrorDialog();
+                    Utility.getInstance().showErrorDialog(context);
+                    //showErrorDialog(context);
+                    //showClientErrorDialog
                   }
+                },
+                builder: (context, state) {
                   return DropdownButtonFormField(
                     isExpanded: true,
                     hint: const Text("Select Leave Type",
@@ -205,6 +213,45 @@ class ScreenApplyLeavePage extends StatelessWidget {
   }
 }
 
+void showErrorDialog(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (ctx1) {
+        return AlertDialog(
+          title: const Text('Message'),
+          content: const Text('Please login'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const ScreenSplash()),
+                      (route) => false);
+                },
+                child: const Text('OK'))
+          ],
+        );
+      });
+}
+
+void showClientErrorDialog(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (ctx1) {
+        return AlertDialog(
+          title: const Text('Message'),
+          content: const Text('Please check your network connection'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx1);
+                },
+                child: const Text('OK'))
+          ],
+        );
+      });
+}
+
 List<DateTime> getDaysInBetween(DateTime startDate, DateTime endDate) {
   List<DateTime> days = [];
   for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
@@ -287,26 +334,28 @@ class ErrorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      content: const Text(
-        'Message',
-      ),
-      actions: <Widget>[
-        MaterialButton(
-          child: const Text('OK'),
-          onPressed: () {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const ScreenSplash()),
-                (route) => false);
-            //Navigator.of(context).pop();
-            // BlocProvider.of<LoginBloc>(context).add(const Logoutclick());
-            // Future.delayed(Duration.zero, () {
-            //   Navigator.push(context,
-            //       MaterialPageRoute(builder: (context) => ScreenSplash()));
-            // });
-          },
+    return Dialog(
+      child: AlertDialog(
+        content: const Text(
+          'Message',
         ),
-      ],
+        actions: <Widget>[
+          MaterialButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const ScreenSplash()),
+                  (route) => false);
+              //Navigator.of(context).pop();
+              // BlocProvider.of<LoginBloc>(context).add(const Logoutclick());
+              // Future.delayed(Duration.zero, () {
+              //   Navigator.push(context,
+              //       MaterialPageRoute(builder: (context) => ScreenSplash()));
+              // });
+            },
+          ),
+        ],
+      ),
     );
   }
 }

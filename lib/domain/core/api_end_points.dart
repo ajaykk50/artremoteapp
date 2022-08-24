@@ -8,4 +8,7 @@ class ApiEndPoints {
   static const sendhelp = "$kBaseUrl/helpdesk";
   static const leavetype = "$kBaseUrl/leaves";
   static const leaveapply = "$kBaseUrl/leaves/apply";
+  static const profileimage = "$kBaseUrl/profile/picture/";
+  static const profile = "$kBaseUrl/profile";
+  static const changepasswd = "$kBaseUrl/profile/reset";
 }
