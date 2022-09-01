@@ -24,7 +24,7 @@ class NoticeImpl extends NoticeBoardService {
         if (response.data[0] == null) {
           if (response.data['message'] ==
               'Invalid or expired authorization token') {
-            return const Left(MainFailure.serverFailure());
+            return const Left(MainFailure.authFailure());
           } else {
             return const Left(MainFailure.serverFailure());
           }
@@ -32,8 +32,6 @@ class NoticeImpl extends NoticeBoardService {
           final leaveresponse = (response.data as List).map((e) {
             return NoticeBoardResponse.fromJson(e);
           }).toList();
-
-          log('worksss.......' + leaveresponse.toString());
           return Right(leaveresponse);
         }
       } else {

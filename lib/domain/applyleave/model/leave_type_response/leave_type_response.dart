@@ -4,6 +4,10 @@ part 'leave_type_response.g.dart';
 
 @JsonSerializable()
 class LeaveTypeResponse {
+  @JsonKey(name: 'status')
+  String? status;
+  @JsonKey(name: 'message')
+  String? message;
   @JsonKey(name: 'id')
   String? id;
   @JsonKey(name: 'name')
@@ -13,7 +17,8 @@ class LeaveTypeResponse {
   @JsonKey(name: 'used')
   String? used;
 
-  LeaveTypeResponse({this.id, this.name, this.total, this.used});
+  LeaveTypeResponse(
+      {this.id, this.name, this.total, this.used, this.status, this.message});
 
   factory LeaveTypeResponse.fromJson(Map<String, dynamic> json) {
     return _$LeaveTypeResponseFromJson(json);

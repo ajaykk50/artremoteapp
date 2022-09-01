@@ -2,9 +2,11 @@ import 'package:art_remoteapp/core/colors/colors.dart';
 import 'package:art_remoteapp/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../application/profile/profile_bloc.dart';
 import '../../core/sessionmanager.dart';
+import '../../core/utility.dart';
 
 SessionManager prefs = SessionManager();
 String token = "";
@@ -43,12 +45,28 @@ class ScreenPasswordChangePage extends StatelessWidget {
           padding: kPadding,
           child: BlocConsumer<ProfileBloc, ProfileState>(
             listener: (context, state) {
+              Navigator.pop(context);
               if (state.isLoading) {
               } else if (state.isServerError) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Utility.getInstance().showServerErrorDialog(
+                      context, "There is some problem.Please try later");
+                });
               } else if (state.isClientError) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Utility.getInstance().showClientErrorDialog(
+                      context, "Please check your network");
+                });
+              } else if (state.isAuthError) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Utility.getInstance().showErrorDialog(context);
+                });
               } else if (state.updateresp != null) {
                 if (state.updateresp?.status == "Success") {
-                  Navigator.pop(context);
+                  Fluttertoast.showToast(msg: "Successfully updates");
+                } else {
+                  Fluttertoast.showToast(
+                      msg: "There is some problem.Tray again later");
                 }
               }
             },
@@ -112,10 +130,22 @@ class ScreenPasswordChangePage extends StatelessWidget {
                   kHeight,
                   ElevatedButton(
                     onPressed: () {
-                      BlocProvider.of<ProfileBloc>(context).add(Changepasswd(
-                          token: token,
-                          currentpasswd: currentpasswdController.text,
-                          newpasswd: newpasswdController.text));
+                      if (currentpasswdController.text.isEmpty) {
+                        Fluttertoast.showToast(msg: "Enter current password");
+                      } else if (newpasswdController.text.isEmpty) {
+                        Fluttertoast.showToast(msg: "Enter new password");
+                      } else if (confirmpasswdController.text.isEmpty) {
+                        Fluttertoast.showToast(msg: "Enter confirm password");
+                      } else if (newpasswdController.text !=
+                          confirmpasswdController.text) {
+                        Fluttertoast.showToast(msg: "Password mis match");
+                      } else {
+                        showLoaderDialog(context);
+                        BlocProvider.of<ProfileBloc>(context).add(Changepasswd(
+                            token: token,
+                            currentpasswd: currentpasswdController.text,
+                            newpasswd: newpasswdController.text));
+                      }
                     },
                     style: ElevatedButton.styleFrom(primary: Colors.grey),
                     child: const Text("Change Password"),
@@ -128,4 +158,23 @@ class ScreenPasswordChangePage extends StatelessWidget {
       )),
     );
   }
+}
+
+void showLoaderDialog(BuildContext context) {
+  AlertDialog alert = AlertDialog(
+    content: Row(
+      children: [
+        const CircularProgressIndicator(),
+        Container(
+            margin: EdgeInsets.only(left: 7), child: const Text("Loading...")),
+      ],
+    ),
+  );
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

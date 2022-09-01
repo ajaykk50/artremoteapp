@@ -6,6 +6,7 @@ import 'package:art_remoteapp/core/constants.dart';
 import 'package:art_remoteapp/domain/applyleave/model/leave_type_response/leave_type_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/sessionmanager.dart';
@@ -63,37 +64,55 @@ class ScreenApplyLeavePage extends StatelessWidget {
               BlocConsumer<ApplyleaveBloc, ApplyleaveState>(
                 listener: (context, state) {
                   if (state.isServerError) {
-                    // showErrorDialog(context);
-                    Utility.getInstance().showErrorDialog(context);
+                    Utility.getInstance().showServerErrorDialog(
+                        context, "There is some problem.Please try later");
                   } else if (state.isClientError) {
+                    Utility.getInstance().showClientErrorDialog(
+                        context, "Please Check your network connection");
+                  } else if (state.isAuthError) {
                     Utility.getInstance().showErrorDialog(context);
-                    //showErrorDialog(context);
-                    //showClientErrorDialog
+                  } else if (state.response != null) {
+                    Navigator.pop(context);
+                    if (state.response?.status.toString() == 'Success') {
+                      fromdate.text = "";
+                      todate.text = "";
+                      ccmail.text = "";
+                      comment.text = "";
+                      Fluttertoast.showToast(msg: "Successfully leave applied");
+                      Navigator.pop(context);
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: state.response?.message.toString() ?? "");
+                    }
                   }
                 },
                 builder: (context, state) {
-                  return DropdownButtonFormField(
-                    isExpanded: true,
-                    hint: const Text("Select Leave Type",
-                        style: TextStyle(color: Colors.black)),
-                    items:
-                        state.leavetyperesponse.map((LeaveTypeResponse items) {
-                      return DropdownMenuItem(
-                          value: items, child: Text(items.name.toString()));
-                    }).toList(),
-                    onChanged: (LeaveTypeResponse? newvalue) {
-                      _selectedLeaveTypeId = newvalue?.id?.toString() ?? "";
-                      _selectedLeaveTypeName = newvalue?.name?.toString() ?? "";
-                    },
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      border: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.white, width: 2),
-                        borderRadius: BorderRadius.circular(10),
+                  return ButtonTheme(
+                    alignedDropdown: true,
+                    child: DropdownButtonFormField(
+                      isExpanded: true,
+                      hint: const Text("Select Leave Type",
+                          style: TextStyle(color: Colors.black)),
+                      items: state.leavetyperesponse
+                          .map((LeaveTypeResponse items) {
+                        return DropdownMenuItem(
+                            value: items, child: Text(items.name.toString()));
+                      }).toList(),
+                      onChanged: (LeaveTypeResponse? newvalue) {
+                        _selectedLeaveTypeId = newvalue?.id?.toString() ?? "";
+                        _selectedLeaveTypeName =
+                            newvalue?.name?.toString() ?? "";
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        border: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
                       ),
-                      filled: true,
-                      fillColor: Colors.white,
                     ),
                   );
                 },
@@ -173,34 +192,49 @@ class ScreenApplyLeavePage extends StatelessWidget {
               kHeight,
               ElevatedButton(
                 onPressed: () {
-                  DateTime from = DateFormat("dd-MM-yyyy").parse(fromdate.text);
-                  DateTime to = DateFormat("dd-MM-yyyy").parse(todate.text);
-                  _selecteddates = getDaysInBetween(from, to);
-                  var durationId = "";
+                  if (_selectedLeaveTypeId.isEmpty) {
+                    Fluttertoast.showToast(msg: "Select leave type");
+                  } else if (_selectedDuration.isEmpty) {
+                    Fluttertoast.showToast(msg: "Select leave duration");
+                  } else if (fromdate.text.isEmpty) {
+                    Fluttertoast.showToast(msg: "Select from date");
+                  } else if (todate.text.isEmpty) {
+                    Fluttertoast.showToast(msg: "Select to date");
+                  } else if (DateFormat("dd-MM-yyyy")
+                          .parse(todate.text)
+                          .compareTo(
+                              DateFormat("dd-MM-yyyy").parse(fromdate.text)) <
+                      0) {
+                    Fluttertoast.showToast(
+                        msg: "To date must be greater or equal to From date");
+                  } else if (ccmail.text.isEmpty ||
+                      !validateEmail(ccmail.text)) {
+                    Fluttertoast.showToast(msg: "Enter valid cc mail");
+                  } else {
+                    DateTime from =
+                        DateFormat("dd-MM-yyyy").parse(fromdate.text);
+                    DateTime to = DateFormat("dd-MM-yyyy").parse(todate.text);
 
-                  if (_selectedDuration == "Full day") {
-                    durationId = "0";
-                  } else if (_selectedDuration == "Fornoon") {
-                    durationId = "1";
-                  } else if (_selectedDuration == "Afternoon") {
-                    durationId = "2";
+                    _selecteddates.clear();
+                    _selecteddates = getDaysInBetween(from, to);
+                    var durationId = "";
+
+                    if (_selectedDuration == "Full day") {
+                      durationId = "0";
+                    } else if (_selectedDuration == "Fornoon") {
+                      durationId = "1";
+                    } else if (_selectedDuration == "Afternoon") {
+                      durationId = "2";
+                    }
+                    showLoaderDialog(context);
+                    BlocProvider.of<ApplyleaveBloc>(context).add(Submitleave(
+                        token: token,
+                        ccMail: ccmail.text,
+                        comment: comment.text,
+                        dates: _selecteddates,
+                        leaveType: _selectedLeaveTypeId,
+                        leaveDuration: durationId));
                   }
-
-                  BlocProvider.of<ApplyleaveBloc>(context).add(Submitleave(
-                      token: token,
-                      ccMail: ccmail.text,
-                      comment: comment.text,
-                      dates: _selecteddates,
-                      leaveType: _selectedLeaveTypeId,
-                      leaveDuration: durationId));
-
-                  // Future.delayed(Duration.zero, () {
-                  //   Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //           builder: (context) => ScreenLoginPage()));
-                  // });
-                  // showLoaderDialog(context);
                 },
                 style: ElevatedButton.styleFrom(primary: Colors.grey),
                 child: const Text("Apply Leave"),
@@ -211,6 +245,13 @@ class ScreenApplyLeavePage extends StatelessWidget {
       )),
     );
   }
+}
+
+bool validateEmail(String value) {
+  String pattern =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  RegExp regex = RegExp(pattern);
+  return (!regex.hasMatch(value)) ? false : true;
 }
 
 void showErrorDialog(BuildContext context) {
@@ -254,6 +295,7 @@ void showClientErrorDialog(BuildContext context) {
 
 List<DateTime> getDaysInBetween(DateTime startDate, DateTime endDate) {
   List<DateTime> days = [];
+  days.clear();
   for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
     days.add(startDate.add(Duration(days: i)));
   }
@@ -304,24 +346,27 @@ class LeaveDuration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField(
-      isExpanded: true,
-      hint: const Text("Select Leave Duration",
-          style: TextStyle(color: Colors.black)),
-      items: items.map((String items) {
-        return DropdownMenuItem(value: items, child: Text(items));
-      }).toList(),
-      onChanged: (String? newvalue) {
-        _selectedDuration = newvalue.toString();
-      },
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-        border: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white, width: 2),
-          borderRadius: BorderRadius.circular(10),
+    return ButtonTheme(
+      alignedDropdown: true,
+      child: DropdownButtonFormField(
+        isExpanded: true,
+        hint: const Text("Select Leave Duration",
+            style: TextStyle(color: Colors.black)),
+        items: items.map((String items) {
+          return DropdownMenuItem(value: items, child: Text(items));
+        }).toList(),
+        onChanged: (String? newvalue) {
+          _selectedDuration = newvalue.toString();
+        },
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white, width: 2),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          filled: true,
+          fillColor: Colors.white,
         ),
-        filled: true,
-        fillColor: Colors.white,
       ),
     );
   }

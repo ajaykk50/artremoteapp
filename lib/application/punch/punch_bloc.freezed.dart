@@ -419,7 +419,9 @@ abstract class OnPunchClick implements PunchEvent {
 /// @nodoc
 mixin _$PunchState {
   bool get isLoading => throw _privateConstructorUsedError;
-  bool get isError => throw _privateConstructorUsedError;
+  bool get isServerError => throw _privateConstructorUsedError;
+  bool get isClientError => throw _privateConstructorUsedError;
+  bool get isAuthError => throw _privateConstructorUsedError;
   PunchResponse? get punchresponse => throw _privateConstructorUsedError;
   PunchingResponse? get punchingresponse => throw _privateConstructorUsedError;
 
@@ -435,7 +437,9 @@ abstract class $PunchStateCopyWith<$Res> {
       _$PunchStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
-      bool isError,
+      bool isServerError,
+      bool isClientError,
+      bool isAuthError,
       PunchResponse? punchresponse,
       PunchingResponse? punchingresponse});
 }
@@ -451,7 +455,9 @@ class _$PunchStateCopyWithImpl<$Res> implements $PunchStateCopyWith<$Res> {
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? isError = freezed,
+    Object? isServerError = freezed,
+    Object? isClientError = freezed,
+    Object? isAuthError = freezed,
     Object? punchresponse = freezed,
     Object? punchingresponse = freezed,
   }) {
@@ -460,9 +466,17 @@ class _$PunchStateCopyWithImpl<$Res> implements $PunchStateCopyWith<$Res> {
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isError: isError == freezed
-          ? _value.isError
-          : isError // ignore: cast_nullable_to_non_nullable
+      isServerError: isServerError == freezed
+          ? _value.isServerError
+          : isServerError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isClientError: isClientError == freezed
+          ? _value.isClientError
+          : isClientError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAuthError: isAuthError == freezed
+          ? _value.isAuthError
+          : isAuthError // ignore: cast_nullable_to_non_nullable
               as bool,
       punchresponse: punchresponse == freezed
           ? _value.punchresponse
@@ -485,7 +499,9 @@ abstract class _$$_PunchStateCopyWith<$Res>
   @override
   $Res call(
       {bool isLoading,
-      bool isError,
+      bool isServerError,
+      bool isClientError,
+      bool isAuthError,
       PunchResponse? punchresponse,
       PunchingResponse? punchingresponse});
 }
@@ -503,7 +519,9 @@ class __$$_PunchStateCopyWithImpl<$Res> extends _$PunchStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? isError = freezed,
+    Object? isServerError = freezed,
+    Object? isClientError = freezed,
+    Object? isAuthError = freezed,
     Object? punchresponse = freezed,
     Object? punchingresponse = freezed,
   }) {
@@ -512,9 +530,17 @@ class __$$_PunchStateCopyWithImpl<$Res> extends _$PunchStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isError: isError == freezed
-          ? _value.isError
-          : isError // ignore: cast_nullable_to_non_nullable
+      isServerError: isServerError == freezed
+          ? _value.isServerError
+          : isServerError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isClientError: isClientError == freezed
+          ? _value.isClientError
+          : isClientError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAuthError: isAuthError == freezed
+          ? _value.isAuthError
+          : isAuthError // ignore: cast_nullable_to_non_nullable
               as bool,
       punchresponse: punchresponse == freezed
           ? _value.punchresponse
@@ -533,14 +559,20 @@ class __$$_PunchStateCopyWithImpl<$Res> extends _$PunchStateCopyWithImpl<$Res>
 class _$_PunchState with DiagnosticableTreeMixin implements _PunchState {
   const _$_PunchState(
       {required this.isLoading,
-      required this.isError,
+      required this.isServerError,
+      required this.isClientError,
+      required this.isAuthError,
       required this.punchresponse,
       required this.punchingresponse});
 
   @override
   final bool isLoading;
   @override
-  final bool isError;
+  final bool isServerError;
+  @override
+  final bool isClientError;
+  @override
+  final bool isAuthError;
   @override
   final PunchResponse? punchresponse;
   @override
@@ -548,7 +580,7 @@ class _$_PunchState with DiagnosticableTreeMixin implements _PunchState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PunchState(isLoading: $isLoading, isError: $isError, punchresponse: $punchresponse, punchingresponse: $punchingresponse)';
+    return 'PunchState(isLoading: $isLoading, isServerError: $isServerError, isClientError: $isClientError, isAuthError: $isAuthError, punchresponse: $punchresponse, punchingresponse: $punchingresponse)';
   }
 
   @override
@@ -557,7 +589,9 @@ class _$_PunchState with DiagnosticableTreeMixin implements _PunchState {
     properties
       ..add(DiagnosticsProperty('type', 'PunchState'))
       ..add(DiagnosticsProperty('isLoading', isLoading))
-      ..add(DiagnosticsProperty('isError', isError))
+      ..add(DiagnosticsProperty('isServerError', isServerError))
+      ..add(DiagnosticsProperty('isClientError', isClientError))
+      ..add(DiagnosticsProperty('isAuthError', isAuthError))
       ..add(DiagnosticsProperty('punchresponse', punchresponse))
       ..add(DiagnosticsProperty('punchingresponse', punchingresponse));
   }
@@ -568,7 +602,12 @@ class _$_PunchState with DiagnosticableTreeMixin implements _PunchState {
         (other.runtimeType == runtimeType &&
             other is _$_PunchState &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
-            const DeepCollectionEquality().equals(other.isError, isError) &&
+            const DeepCollectionEquality()
+                .equals(other.isServerError, isServerError) &&
+            const DeepCollectionEquality()
+                .equals(other.isClientError, isClientError) &&
+            const DeepCollectionEquality()
+                .equals(other.isAuthError, isAuthError) &&
             const DeepCollectionEquality()
                 .equals(other.punchresponse, punchresponse) &&
             const DeepCollectionEquality()
@@ -579,7 +618,9 @@ class _$_PunchState with DiagnosticableTreeMixin implements _PunchState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(isLoading),
-      const DeepCollectionEquality().hash(isError),
+      const DeepCollectionEquality().hash(isServerError),
+      const DeepCollectionEquality().hash(isClientError),
+      const DeepCollectionEquality().hash(isAuthError),
       const DeepCollectionEquality().hash(punchresponse),
       const DeepCollectionEquality().hash(punchingresponse));
 
@@ -592,14 +633,20 @@ class _$_PunchState with DiagnosticableTreeMixin implements _PunchState {
 abstract class _PunchState implements PunchState {
   const factory _PunchState(
       {required final bool isLoading,
-      required final bool isError,
+      required final bool isServerError,
+      required final bool isClientError,
+      required final bool isAuthError,
       required final PunchResponse? punchresponse,
       required final PunchingResponse? punchingresponse}) = _$_PunchState;
 
   @override
   bool get isLoading;
   @override
-  bool get isError;
+  bool get isServerError;
+  @override
+  bool get isClientError;
+  @override
+  bool get isAuthError;
   @override
   PunchResponse? get punchresponse;
   @override

@@ -64,15 +64,16 @@ class ProfileImpl extends ProfileService {
         data: jsonEncode(params),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        log(response.data.toString());
-        if (response.data['message'] == null) {
-          final result = ProfileResponse.fromJson(response.data);
-          return Right(result);
-        } else if (response.data['message'] ==
-            'Invalid or expired authorization token') {
-          return const Left(MainFailure.serverFailure());
+        final result = ProfileResponse.fromJson(response.data);
+
+        if (result.status == 'Error') {
+          if (result.message == 'Invalid or expired authorization token') {
+            return const Left(MainFailure.authFailure());
+          } else {
+            return Right(result);
+          }
         } else {
-          return const Left(MainFailure.serverFailure());
+          return Right(result);
         }
       } else {
         return const Left(MainFailure.serverFailure());
@@ -99,13 +100,12 @@ class ProfileImpl extends ProfileService {
         data: jsonEncode(params),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        log("resp..." + response.data.toString());
         if (response.data['message'] == null) {
           final result = ProfileResponse.fromJson(response.data);
           return Right(result);
         } else if (response.data['message'] ==
             'Invalid or expired authorization token') {
-          return const Left(MainFailure.serverFailure());
+          return const Left(MainFailure.authFailure());
         } else {
           return const Left(MainFailure.serverFailure());
         }

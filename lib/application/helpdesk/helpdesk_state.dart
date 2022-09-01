@@ -4,14 +4,18 @@ part of 'helpdesk_bloc.dart';
 class HelpdeskState with _$HelpdeskState {
   const factory HelpdeskState(
       {required bool isLoading,
-      required bool isError,
+      required bool isServerError,
+      required bool isClientError,
+      required bool isAuthError,
       required List<TopicResponse>? topicresponse,
       required XFile? filepath,
-      required TopicResponse? helpresponse}) = _HelpdeskState;
+      required HelpRequestResponse? helpresponse}) = _HelpdeskState;
 
   factory HelpdeskState.initial() => const HelpdeskState(
       isLoading: false,
-      isError: false,
+      isServerError: false,
+      isClientError: false,
+      isAuthError: false,
       topicresponse: [],
       filepath: null,
       helpresponse: null);

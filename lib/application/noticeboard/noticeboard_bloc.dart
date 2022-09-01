@@ -19,6 +19,7 @@ class NoticeboardBloc extends Bloc<NoticeboardEvent, NoticeboardState> {
         isLoading: true,
         isServerError: false,
         isClientError: false,
+        isAuthError: false,
         response: [],
       ));
       final noticeresp = await noticeboardservice.getNotice(token: event.token);
@@ -29,13 +30,31 @@ class NoticeboardBloc extends Bloc<NoticeboardEvent, NoticeboardState> {
               isLoading: false,
               isServerError: true,
               isClientError: false,
+              isAuthError: false,
+              response: [],
+            );
+          } else if (f is ClientFailure) {
+            return const NoticeboardState(
+              isLoading: false,
+              isServerError: false,
+              isClientError: true,
+              isAuthError: false,
+              response: [],
+            );
+          } else if (f is AuthFailure) {
+            return const NoticeboardState(
+              isLoading: false,
+              isServerError: false,
+              isClientError: false,
+              isAuthError: true,
               response: [],
             );
           } else {
             return const NoticeboardState(
               isLoading: false,
               isServerError: false,
-              isClientError: true,
+              isClientError: false,
+              isAuthError: true,
               response: [],
             );
           }
@@ -45,6 +64,7 @@ class NoticeboardBloc extends Bloc<NoticeboardEvent, NoticeboardState> {
             isLoading: false,
             isServerError: false,
             isClientError: false,
+            isAuthError: false,
             response: resp,
           );
         },

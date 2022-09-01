@@ -1,4 +1,5 @@
 import 'package:art_remoteapp/domain/core/failures/main_failure.dart';
+import 'package:art_remoteapp/domain/helpdesk/model/help_request_response/help_request_response.dart';
 import 'package:art_remoteapp/domain/helpdesk/model/topic_response/topic_response.dart';
 import 'package:art_remoteapp/domain/helpdesk/topic_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +19,9 @@ class HelpdeskBloc extends Bloc<HelpdeskEvent, HelpdeskState> {
     on<Gettopic>((event, emit) async {
       emit(const HelpdeskState(
           isLoading: true,
-          isError: false,
+          isServerError: false,
+          isClientError: false,
+          isAuthError: false,
           topicresponse: [],
           filepath: null,
           helpresponse: null));
@@ -27,17 +30,41 @@ class HelpdeskBloc extends Bloc<HelpdeskEvent, HelpdeskState> {
 
       final topicstate = result.fold(
         (MainFailure f) {
-          return const HelpdeskState(
-              isLoading: false,
-              isError: true,
-              topicresponse: [],
-              filepath: null,
-              helpresponse: null);
+          if (f is ServerFailure) {
+            return const HelpdeskState(
+                isLoading: false,
+                isServerError: true,
+                isClientError: false,
+                isAuthError: false,
+                topicresponse: [],
+                filepath: null,
+                helpresponse: null);
+          } else if (f is ClientFailure) {
+            return const HelpdeskState(
+                isLoading: false,
+                isServerError: false,
+                isClientError: true,
+                isAuthError: false,
+                topicresponse: [],
+                filepath: null,
+                helpresponse: null);
+          } else {
+            return const HelpdeskState(
+                isLoading: false,
+                isServerError: false,
+                isClientError: false,
+                isAuthError: true,
+                topicresponse: [],
+                filepath: null,
+                helpresponse: null);
+          }
         },
         (List<TopicResponse> resp) {
           return HelpdeskState(
               isLoading: false,
-              isError: false,
+              isServerError: false,
+              isClientError: false,
+              isAuthError: false,
               topicresponse: resp,
               filepath: state.filepath,
               helpresponse: null);
@@ -51,7 +78,9 @@ class HelpdeskBloc extends Bloc<HelpdeskEvent, HelpdeskState> {
       XFile? image = await picker.pickImage(source: ImageSource.gallery);
       emit(HelpdeskState(
           isLoading: false,
-          isError: false,
+          isServerError: false,
+          isClientError: false,
+          isAuthError: false,
           topicresponse: state.topicresponse,
           filepath: image,
           helpresponse: null));
@@ -60,7 +89,9 @@ class HelpdeskBloc extends Bloc<HelpdeskEvent, HelpdeskState> {
     on<SendHelp>((event, emit) async {
       emit(HelpdeskState(
           isLoading: true,
-          isError: false,
+          isServerError: false,
+          isClientError: false,
+          isAuthError: false,
           topicresponse: state.topicresponse,
           filepath: null,
           helpresponse: null));
@@ -74,17 +105,41 @@ class HelpdeskBloc extends Bloc<HelpdeskEvent, HelpdeskState> {
 
       final sendState = result.fold(
         (MainFailure f) {
-          return const HelpdeskState(
-              isLoading: false,
-              isError: true,
-              topicresponse: [],
-              filepath: null,
-              helpresponse: null);
+          if (f is ServerFailure) {
+            return const HelpdeskState(
+                isLoading: false,
+                isServerError: true,
+                isClientError: false,
+                isAuthError: false,
+                topicresponse: [],
+                filepath: null,
+                helpresponse: null);
+          } else if (f is ClientFailure) {
+            return const HelpdeskState(
+                isLoading: false,
+                isServerError: false,
+                isClientError: true,
+                isAuthError: false,
+                topicresponse: [],
+                filepath: null,
+                helpresponse: null);
+          } else {
+            return const HelpdeskState(
+                isLoading: false,
+                isServerError: false,
+                isClientError: false,
+                isAuthError: true,
+                topicresponse: [],
+                filepath: null,
+                helpresponse: null);
+          }
         },
-        (TopicResponse resp) {
+        (HelpRequestResponse resp) {
           return HelpdeskState(
               isLoading: false,
-              isError: false,
+              isServerError: false,
+              isClientError: false,
+              isAuthError: false,
               topicresponse: state.topicresponse,
               filepath: state.filepath,
               helpresponse: resp);

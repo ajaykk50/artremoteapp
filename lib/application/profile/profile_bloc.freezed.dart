@@ -657,6 +657,7 @@ mixin _$ProfileState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isServerError => throw _privateConstructorUsedError;
   bool get isClientError => throw _privateConstructorUsedError;
+  bool get isAuthError => throw _privateConstructorUsedError;
   ProfileResponse? get response => throw _privateConstructorUsedError;
   ProfileResponse? get updateresp => throw _privateConstructorUsedError;
 
@@ -674,6 +675,7 @@ abstract class $ProfileStateCopyWith<$Res> {
       {bool isLoading,
       bool isServerError,
       bool isClientError,
+      bool isAuthError,
       ProfileResponse? response,
       ProfileResponse? updateresp});
 }
@@ -691,6 +693,7 @@ class _$ProfileStateCopyWithImpl<$Res> implements $ProfileStateCopyWith<$Res> {
     Object? isLoading = freezed,
     Object? isServerError = freezed,
     Object? isClientError = freezed,
+    Object? isAuthError = freezed,
     Object? response = freezed,
     Object? updateresp = freezed,
   }) {
@@ -706,6 +709,10 @@ class _$ProfileStateCopyWithImpl<$Res> implements $ProfileStateCopyWith<$Res> {
       isClientError: isClientError == freezed
           ? _value.isClientError
           : isClientError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAuthError: isAuthError == freezed
+          ? _value.isAuthError
+          : isAuthError // ignore: cast_nullable_to_non_nullable
               as bool,
       response: response == freezed
           ? _value.response
@@ -730,6 +737,7 @@ abstract class _$$_ProfileStateCopyWith<$Res>
       {bool isLoading,
       bool isServerError,
       bool isClientError,
+      bool isAuthError,
       ProfileResponse? response,
       ProfileResponse? updateresp});
 }
@@ -750,6 +758,7 @@ class __$$_ProfileStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? isServerError = freezed,
     Object? isClientError = freezed,
+    Object? isAuthError = freezed,
     Object? response = freezed,
     Object? updateresp = freezed,
   }) {
@@ -765,6 +774,10 @@ class __$$_ProfileStateCopyWithImpl<$Res>
       isClientError: isClientError == freezed
           ? _value.isClientError
           : isClientError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAuthError: isAuthError == freezed
+          ? _value.isAuthError
+          : isAuthError // ignore: cast_nullable_to_non_nullable
               as bool,
       response: response == freezed
           ? _value.response
@@ -785,6 +798,7 @@ class _$_ProfileState implements _ProfileState {
       {required this.isLoading,
       required this.isServerError,
       required this.isClientError,
+      required this.isAuthError,
       required this.response,
       required this.updateresp});
 
@@ -795,13 +809,15 @@ class _$_ProfileState implements _ProfileState {
   @override
   final bool isClientError;
   @override
+  final bool isAuthError;
+  @override
   final ProfileResponse? response;
   @override
   final ProfileResponse? updateresp;
 
   @override
   String toString() {
-    return 'ProfileState(isLoading: $isLoading, isServerError: $isServerError, isClientError: $isClientError, response: $response, updateresp: $updateresp)';
+    return 'ProfileState(isLoading: $isLoading, isServerError: $isServerError, isClientError: $isClientError, isAuthError: $isAuthError, response: $response, updateresp: $updateresp)';
   }
 
   @override
@@ -814,6 +830,8 @@ class _$_ProfileState implements _ProfileState {
                 .equals(other.isServerError, isServerError) &&
             const DeepCollectionEquality()
                 .equals(other.isClientError, isClientError) &&
+            const DeepCollectionEquality()
+                .equals(other.isAuthError, isAuthError) &&
             const DeepCollectionEquality().equals(other.response, response) &&
             const DeepCollectionEquality()
                 .equals(other.updateresp, updateresp));
@@ -825,6 +843,7 @@ class _$_ProfileState implements _ProfileState {
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(isServerError),
       const DeepCollectionEquality().hash(isClientError),
+      const DeepCollectionEquality().hash(isAuthError),
       const DeepCollectionEquality().hash(response),
       const DeepCollectionEquality().hash(updateresp));
 
@@ -839,6 +858,7 @@ abstract class _ProfileState implements ProfileState {
       {required final bool isLoading,
       required final bool isServerError,
       required final bool isClientError,
+      required final bool isAuthError,
       required final ProfileResponse? response,
       required final ProfileResponse? updateresp}) = _$_ProfileState;
 
@@ -848,6 +868,8 @@ abstract class _ProfileState implements ProfileState {
   bool get isServerError;
   @override
   bool get isClientError;
+  @override
+  bool get isAuthError;
   @override
   ProfileResponse? get response;
   @override

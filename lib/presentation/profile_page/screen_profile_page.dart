@@ -7,6 +7,9 @@ import 'package:art_remoteapp/core/sessionmanager.dart';
 import 'package:art_remoteapp/presentation/password_change_page/screen_password_change_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../core/utility.dart';
 
 SessionManager prefs = SessionManager();
 String firstname = "";
@@ -52,13 +55,34 @@ class ScreenProfilePage extends StatelessWidget {
           child: BlocConsumer<ProfileBloc, ProfileState>(
             listener: (context, state) {
               if (state.isLoading) {
+                // showLoaderDialog(context);
               } else if (state.isServerError) {
-              } else if (state.isClientError) {}
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Utility.getInstance().showServerErrorDialog(
+                      context, "There is some problem.Please try later");
+                });
+              } else if (state.isClientError) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Utility.getInstance().showClientErrorDialog(
+                      context, "Please check your network");
+                });
+              } else if (state.isAuthError) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Utility.getInstance().showErrorDialog(context);
+                });
+              } else if (state.updateresp != null) {
+                Navigator.pop(context);
+                if (state.updateresp?.status == 'Success') {
+                  Fluttertoast.showToast(msg: "Successfully updates");
+                } else {
+                  Fluttertoast.showToast(
+                      msg: "There is some problem.Tray again later");
+                }
+              }
             },
             builder: (context, state) {
-              print(state.response);
-
               if (state.response != null) {
+                //Navigator.pop(context);
                 firstname = state.response?.firstName ?? "";
                 lastname = state.response?.lastName ?? "";
                 mobile = state.response?.perMobile ?? "";
@@ -183,12 +207,23 @@ class ScreenProfilePage extends StatelessWidget {
                   kHeight,
                   ElevatedButton(
                     onPressed: () {
-                      BlocProvider.of<ProfileBloc>(context).add(Updateprofile(
-                          token: token,
-                          mobile: mobileController.text,
-                          workemail: workemailController.text,
-                          othemail: emailController.text,
-                          emergencyno: emgcontactController.text));
+                      if (emailController.text.isEmpty) {
+                        Fluttertoast.showToast(msg: "Enter personal email");
+                      } else if (mobileController.text.isEmpty) {
+                        Fluttertoast.showToast(msg: "Enter mobile number");
+                      } else if (workemailController.text.isEmpty) {
+                        Fluttertoast.showToast(msg: "Enter company email");
+                      } else if (emgcontactController.text.isEmpty) {
+                        Fluttertoast.showToast(msg: "Enter emergency contact");
+                      } else {
+                        showLoaderDialog(context);
+                        BlocProvider.of<ProfileBloc>(context).add(Updateprofile(
+                            token: token,
+                            mobile: mobileController.text,
+                            workemail: workemailController.text,
+                            othemail: emailController.text,
+                            emergencyno: emgcontactController.text));
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         primary: baackgroundYellowColor),
@@ -221,4 +256,23 @@ class ScreenProfilePage extends StatelessWidget {
       )),
     );
   }
+}
+
+void showLoaderDialog(BuildContext context) {
+  AlertDialog alert = AlertDialog(
+    content: Row(
+      children: [
+        const CircularProgressIndicator(),
+        Container(
+            margin: EdgeInsets.only(left: 7), child: const Text("Loading...")),
+      ],
+    ),
+  );
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

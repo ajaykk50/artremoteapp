@@ -25,7 +25,7 @@ class ScreenHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: backgroundGreyColor,
-        title: Text("Home"),
+        title: const Text("Home"),
       ),
       body: SafeArea(
           child: Container(
@@ -117,94 +117,97 @@ class ScreenHomePage extends StatelessWidget {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      content: ListView(
-                                        shrinkWrap: true,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const ScreenHrPage(
-                                                            hepdeskId: "1",
-                                                          )));
-                                            },
-                                            child: Row(
-                                              children: [
-                                                Image.asset(
-                                                  'assets/images/hrlogo.jpg',
-                                                  width: 35,
-                                                  height: 35,
-                                                ),
-                                                kWidth,
-                                                const Text(
-                                                  'HR',
-                                                  style:
-                                                      TextStyle(fontSize: 20),
-                                                )
-                                              ],
+                                      content: SizedBox(
+                                        width: double.maxFinite,
+                                        child: ListView(
+                                          shrinkWrap: true,
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const ScreenHrPage(
+                                                              hepdeskId: "1",
+                                                            )));
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/images/hrlogo.jpg',
+                                                    width: 35,
+                                                    height: 35,
+                                                  ),
+                                                  kWidth,
+                                                  const Text(
+                                                    'HR',
+                                                    style:
+                                                        TextStyle(fontSize: 20),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          const Divider(
-                                            color: Colors.black,
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const ScreenHrPage(
-                                                            hepdeskId: "2",
-                                                          )));
-                                            },
-                                            child: Row(
-                                              children: [
-                                                Image.asset(
-                                                  'assets/images/accounts.jpg',
-                                                  width: 35,
-                                                  height: 35,
-                                                ),
-                                                kWidth,
-                                                const Text(
-                                                  'Accounts',
-                                                  style:
-                                                      TextStyle(fontSize: 20),
-                                                )
-                                              ],
+                                            const Divider(
+                                              color: Colors.black,
                                             ),
-                                          ),
-                                          const Divider(
-                                            color: Colors.black,
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const ScreenHrPage(
-                                                            hepdeskId: "3",
-                                                          )));
-                                            },
-                                            child: Row(
-                                              children: [
-                                                Image.asset(
-                                                  'assets/images/network.png',
-                                                  width: 35,
-                                                  height: 35,
-                                                ),
-                                                kWidth,
-                                                const Text(
-                                                  'Network',
-                                                  style:
-                                                      TextStyle(fontSize: 20),
-                                                )
-                                              ],
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const ScreenHrPage(
+                                                              hepdeskId: "2",
+                                                            )));
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/images/accounts.jpg',
+                                                    width: 35,
+                                                    height: 35,
+                                                  ),
+                                                  kWidth,
+                                                  const Text(
+                                                    'Accounts',
+                                                    style:
+                                                        TextStyle(fontSize: 20),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          )
-                                        ],
+                                            const Divider(
+                                              color: Colors.black,
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const ScreenHrPage(
+                                                              hepdeskId: "3",
+                                                            )));
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/images/network.png',
+                                                    width: 35,
+                                                    height: 35,
+                                                  ),
+                                                  kWidth,
+                                                  const Text(
+                                                    'Network',
+                                                    style:
+                                                        TextStyle(fontSize: 20),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     );
                                   }));

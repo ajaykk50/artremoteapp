@@ -573,10 +573,12 @@ abstract class SendHelp implements HelpdeskEvent {
 /// @nodoc
 mixin _$HelpdeskState {
   bool get isLoading => throw _privateConstructorUsedError;
-  bool get isError => throw _privateConstructorUsedError;
+  bool get isServerError => throw _privateConstructorUsedError;
+  bool get isClientError => throw _privateConstructorUsedError;
+  bool get isAuthError => throw _privateConstructorUsedError;
   List<TopicResponse>? get topicresponse => throw _privateConstructorUsedError;
   XFile? get filepath => throw _privateConstructorUsedError;
-  TopicResponse? get helpresponse => throw _privateConstructorUsedError;
+  HelpRequestResponse? get helpresponse => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HelpdeskStateCopyWith<HelpdeskState> get copyWith =>
@@ -590,10 +592,12 @@ abstract class $HelpdeskStateCopyWith<$Res> {
       _$HelpdeskStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
-      bool isError,
+      bool isServerError,
+      bool isClientError,
+      bool isAuthError,
       List<TopicResponse>? topicresponse,
       XFile? filepath,
-      TopicResponse? helpresponse});
+      HelpRequestResponse? helpresponse});
 }
 
 /// @nodoc
@@ -608,7 +612,9 @@ class _$HelpdeskStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? isError = freezed,
+    Object? isServerError = freezed,
+    Object? isClientError = freezed,
+    Object? isAuthError = freezed,
     Object? topicresponse = freezed,
     Object? filepath = freezed,
     Object? helpresponse = freezed,
@@ -618,9 +624,17 @@ class _$HelpdeskStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isError: isError == freezed
-          ? _value.isError
-          : isError // ignore: cast_nullable_to_non_nullable
+      isServerError: isServerError == freezed
+          ? _value.isServerError
+          : isServerError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isClientError: isClientError == freezed
+          ? _value.isClientError
+          : isClientError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAuthError: isAuthError == freezed
+          ? _value.isAuthError
+          : isAuthError // ignore: cast_nullable_to_non_nullable
               as bool,
       topicresponse: topicresponse == freezed
           ? _value.topicresponse
@@ -633,7 +647,7 @@ class _$HelpdeskStateCopyWithImpl<$Res>
       helpresponse: helpresponse == freezed
           ? _value.helpresponse
           : helpresponse // ignore: cast_nullable_to_non_nullable
-              as TopicResponse?,
+              as HelpRequestResponse?,
     ));
   }
 }
@@ -647,10 +661,12 @@ abstract class _$$_HelpdeskStateCopyWith<$Res>
   @override
   $Res call(
       {bool isLoading,
-      bool isError,
+      bool isServerError,
+      bool isClientError,
+      bool isAuthError,
       List<TopicResponse>? topicresponse,
       XFile? filepath,
-      TopicResponse? helpresponse});
+      HelpRequestResponse? helpresponse});
 }
 
 /// @nodoc
@@ -667,7 +683,9 @@ class __$$_HelpdeskStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? isError = freezed,
+    Object? isServerError = freezed,
+    Object? isClientError = freezed,
+    Object? isAuthError = freezed,
     Object? topicresponse = freezed,
     Object? filepath = freezed,
     Object? helpresponse = freezed,
@@ -677,9 +695,17 @@ class __$$_HelpdeskStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isError: isError == freezed
-          ? _value.isError
-          : isError // ignore: cast_nullable_to_non_nullable
+      isServerError: isServerError == freezed
+          ? _value.isServerError
+          : isServerError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isClientError: isClientError == freezed
+          ? _value.isClientError
+          : isClientError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAuthError: isAuthError == freezed
+          ? _value.isAuthError
+          : isAuthError // ignore: cast_nullable_to_non_nullable
               as bool,
       topicresponse: topicresponse == freezed
           ? _value._topicresponse
@@ -692,7 +718,7 @@ class __$$_HelpdeskStateCopyWithImpl<$Res>
       helpresponse: helpresponse == freezed
           ? _value.helpresponse
           : helpresponse // ignore: cast_nullable_to_non_nullable
-              as TopicResponse?,
+              as HelpRequestResponse?,
     ));
   }
 }
@@ -702,7 +728,9 @@ class __$$_HelpdeskStateCopyWithImpl<$Res>
 class _$_HelpdeskState implements _HelpdeskState {
   const _$_HelpdeskState(
       {required this.isLoading,
-      required this.isError,
+      required this.isServerError,
+      required this.isClientError,
+      required this.isAuthError,
       required final List<TopicResponse>? topicresponse,
       required this.filepath,
       required this.helpresponse})
@@ -711,7 +739,11 @@ class _$_HelpdeskState implements _HelpdeskState {
   @override
   final bool isLoading;
   @override
-  final bool isError;
+  final bool isServerError;
+  @override
+  final bool isClientError;
+  @override
+  final bool isAuthError;
   final List<TopicResponse>? _topicresponse;
   @override
   List<TopicResponse>? get topicresponse {
@@ -724,11 +756,11 @@ class _$_HelpdeskState implements _HelpdeskState {
   @override
   final XFile? filepath;
   @override
-  final TopicResponse? helpresponse;
+  final HelpRequestResponse? helpresponse;
 
   @override
   String toString() {
-    return 'HelpdeskState(isLoading: $isLoading, isError: $isError, topicresponse: $topicresponse, filepath: $filepath, helpresponse: $helpresponse)';
+    return 'HelpdeskState(isLoading: $isLoading, isServerError: $isServerError, isClientError: $isClientError, isAuthError: $isAuthError, topicresponse: $topicresponse, filepath: $filepath, helpresponse: $helpresponse)';
   }
 
   @override
@@ -737,7 +769,12 @@ class _$_HelpdeskState implements _HelpdeskState {
         (other.runtimeType == runtimeType &&
             other is _$_HelpdeskState &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
-            const DeepCollectionEquality().equals(other.isError, isError) &&
+            const DeepCollectionEquality()
+                .equals(other.isServerError, isServerError) &&
+            const DeepCollectionEquality()
+                .equals(other.isClientError, isClientError) &&
+            const DeepCollectionEquality()
+                .equals(other.isAuthError, isAuthError) &&
             const DeepCollectionEquality()
                 .equals(other._topicresponse, _topicresponse) &&
             const DeepCollectionEquality().equals(other.filepath, filepath) &&
@@ -749,7 +786,9 @@ class _$_HelpdeskState implements _HelpdeskState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(isLoading),
-      const DeepCollectionEquality().hash(isError),
+      const DeepCollectionEquality().hash(isServerError),
+      const DeepCollectionEquality().hash(isClientError),
+      const DeepCollectionEquality().hash(isAuthError),
       const DeepCollectionEquality().hash(_topicresponse),
       const DeepCollectionEquality().hash(filepath),
       const DeepCollectionEquality().hash(helpresponse));
@@ -763,21 +802,27 @@ class _$_HelpdeskState implements _HelpdeskState {
 abstract class _HelpdeskState implements HelpdeskState {
   const factory _HelpdeskState(
       {required final bool isLoading,
-      required final bool isError,
+      required final bool isServerError,
+      required final bool isClientError,
+      required final bool isAuthError,
       required final List<TopicResponse>? topicresponse,
       required final XFile? filepath,
-      required final TopicResponse? helpresponse}) = _$_HelpdeskState;
+      required final HelpRequestResponse? helpresponse}) = _$_HelpdeskState;
 
   @override
   bool get isLoading;
   @override
-  bool get isError;
+  bool get isServerError;
+  @override
+  bool get isClientError;
+  @override
+  bool get isAuthError;
   @override
   List<TopicResponse>? get topicresponse;
   @override
   XFile? get filepath;
   @override
-  TopicResponse? get helpresponse;
+  HelpRequestResponse? get helpresponse;
   @override
   @JsonKey(ignore: true)
   _$$_HelpdeskStateCopyWith<_$_HelpdeskState> get copyWith =>

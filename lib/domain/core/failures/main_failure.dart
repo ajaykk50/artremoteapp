@@ -5,4 +5,5 @@ part 'main_failure.freezed.dart';
 class MainFailure with _$MainFailure {
   const factory MainFailure.clientFailure() = ClientFailure;
   const factory MainFailure.serverFailure() = ServerFailure;
+  const factory MainFailure.authFailure() = AuthFailure;
 }

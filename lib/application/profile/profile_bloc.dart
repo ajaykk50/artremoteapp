@@ -19,6 +19,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           isLoading: true,
           isServerError: false,
           isClientError: false,
+          isAuthError: false,
           response: null,
           updateresp: null));
       final result = await profileservice.getProfile(token: event.token);
@@ -29,6 +30,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                 isLoading: false,
                 isServerError: true,
                 isClientError: false,
+                isAuthError: false,
+                response: null,
+                updateresp: null);
+          } else if (f is AuthFailure) {
+            return const ProfileState(
+                isLoading: false,
+                isServerError: false,
+                isClientError: false,
+                isAuthError: true,
                 response: null,
                 updateresp: null);
           } else {
@@ -36,6 +46,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                 isLoading: false,
                 isServerError: false,
                 isClientError: true,
+                isAuthError: false,
                 response: null,
                 updateresp: null);
           }
@@ -45,6 +56,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
               isLoading: false,
               isServerError: false,
               isClientError: false,
+              isAuthError: false,
               response: resp,
               updateresp: null);
         },
@@ -57,6 +69,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           isLoading: true,
           isServerError: false,
           isClientError: false,
+          isAuthError: false,
           response: null,
           updateresp: null));
 
@@ -73,6 +86,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                 isLoading: false,
                 isServerError: true,
                 isClientError: false,
+                isAuthError: false,
+                response: null,
+                updateresp: null);
+          } else if (f is AuthFailure) {
+            return const ProfileState(
+                isLoading: false,
+                isServerError: false,
+                isClientError: false,
+                isAuthError: true,
                 response: null,
                 updateresp: null);
           } else {
@@ -80,6 +102,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                 isLoading: false,
                 isServerError: false,
                 isClientError: true,
+                isAuthError: false,
                 response: null,
                 updateresp: null);
           }
@@ -89,6 +112,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
               isLoading: false,
               isServerError: false,
               isClientError: false,
+              isAuthError: false,
               response: null,
               updateresp: resp);
         },
@@ -101,6 +125,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           isLoading: true,
           isServerError: false,
           isClientError: false,
+          isAuthError: false,
           response: null,
           updateresp: null));
 
@@ -116,6 +141,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                 isLoading: false,
                 isServerError: true,
                 isClientError: false,
+                isAuthError: false,
+                response: null,
+                updateresp: null);
+          } else if (f is AuthFailure) {
+            return const ProfileState(
+                isLoading: false,
+                isServerError: false,
+                isClientError: false,
+                isAuthError: true,
                 response: null,
                 updateresp: null);
           } else {
@@ -123,6 +157,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                 isLoading: false,
                 isServerError: false,
                 isClientError: true,
+                isAuthError: false,
                 response: null,
                 updateresp: null);
           }
@@ -132,6 +167,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
               isLoading: false,
               isServerError: false,
               isClientError: false,
+              isAuthError: false,
               response: null,
               updateresp: resp);
         },

@@ -18,6 +18,7 @@ ProfileResponse _$ProfileResponseFromJson(Map<String, dynamic> json) =>
       emergencyContact: json['emergency_contact'] as String?,
       userName: json['user_name'] as String?,
       status: json['status'] as String?,
+      message: json['message'] as String?,
     );
 
 Map<String, dynamic> _$ProfileResponseToJson(ProfileResponse instance) =>
@@ -32,4 +33,5 @@ Map<String, dynamic> _$ProfileResponseToJson(ProfileResponse instance) =>
       'emergency_contact': instance.emergencyContact,
       'user_name': instance.userName,
       'status': instance.status,
+      'message': instance.message,
     };

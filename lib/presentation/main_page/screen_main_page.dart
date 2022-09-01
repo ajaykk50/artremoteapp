@@ -3,6 +3,7 @@ import 'package:art_remoteapp/presentation/home_page/screen_home_page.dart';
 import 'package:art_remoteapp/presentation/leave_details_page/screen_leave_details_page.dart';
 import 'package:art_remoteapp/presentation/profile_page/screen_profile_page.dart';
 import 'package:flutter/material.dart';
+import '../leave_details_page/screen_leave_history_tabs_page.dart';
 import 'wigets/bottom_nav.dart';
 
 class ScreenMainPage extends StatelessWidget {
@@ -11,7 +12,7 @@ class ScreenMainPage extends StatelessWidget {
   final _pages = const [
     ScreenHomePage(),
     ScreenProfilePage(),
-    ScreenLeaveDetailsPage(),
+    ScreenLeaveHistoryTabsPage(),
     ScreenProfilePage(),
   ];
 

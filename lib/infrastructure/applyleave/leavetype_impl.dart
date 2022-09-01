@@ -8,12 +8,11 @@ import 'package:art_remoteapp/domain/applyleave/model/leave_type_response/leave_
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../domain/applyleave/model/leave_apply_reponse/leave_apply_reponse.dart';
 import '../../domain/core/api_end_points.dart';
 
 @LazySingleton(as: LeaveTypeService)
 class LeaveTypeImpl extends LeaveTypeService {
-  var sampleArray = [];
-
   @override
   Future<Either<MainFailure, List<LeaveTypeResponse>>> getLeaveType(
       {required String token}) async {
@@ -27,7 +26,7 @@ class LeaveTypeImpl extends LeaveTypeService {
         if (response.data[0] == null) {
           if (response.data['message'] ==
               'Invalid or expired authorization token') {
-            return const Left(MainFailure.serverFailure());
+            return const Left(MainFailure.authFailure());
           } else {
             return const Left(MainFailure.serverFailure());
           }
@@ -47,7 +46,7 @@ class LeaveTypeImpl extends LeaveTypeService {
   }
 
   @override
-  Future<Either<MainFailure, List<LeaveTypeResponse>>> applyLeave(
+  Future<Either<MainFailure, LeaveApplyReponse>> applyLeave(
       {required String token,
       required String ccMail,
       required String comment,
@@ -55,6 +54,8 @@ class LeaveTypeImpl extends LeaveTypeService {
       required String leaveType,
       required String leaveDuration}) async {
     try {
+      var sampleArray = [];
+      sampleArray.clear();
       for (int i = 0; i < dates.length; i++) {
         var datesArray = {
           "date": dates[i].toString(),
@@ -73,20 +74,20 @@ class LeaveTypeImpl extends LeaveTypeService {
           ApiEndPoints.leaveapply,
           options: Options(headers: {"authorization": "Bearer $token"}),
           data: params);
+
+      log("params" + params.toString());
+
       if (response.statusCode == 200 || response.statusCode == 201) {
-        log(response.data);
-        if (response.data[0] == null) {
+        final result = LeaveApplyReponse.fromJson(response.data);
+        if (response.data['status'] == 'Error') {
           if (response.data['message'] ==
               'Invalid or expired authorization token') {
-            return const Left(MainFailure.serverFailure());
+            return const Left(MainFailure.authFailure());
           } else {
-            return const Left(MainFailure.serverFailure());
+            return Right(result);
           }
         } else {
-          final leaveresponse = (response.data as List).map((e) {
-            return LeaveTypeResponse.fromJson(e);
-          }).toList();
-          return Right(leaveresponse);
+          return Right(result);
         }
       } else {
         return const Left(MainFailure.serverFailure());

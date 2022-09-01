@@ -73,7 +73,9 @@ class ScreenLoginPage extends StatelessWidget {
                             BlocProvider.of<LoginBloc>(context)
                                 .add(const Passwdvisible());
                           },
-                          icon: Icon(Icons.visibility),
+                          icon: (state.isVisible)
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off),
                         ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
@@ -106,14 +108,23 @@ class ScreenLoginPage extends StatelessWidget {
                     });
                   } else if (state.loginresultData?.status == "Error") {
                     var msg = state.loginresultData?.message;
-                    Fluttertoast.showToast(msg: "Invalid user");
-                  } else if (state.isError) {
-                    Fluttertoast.showToast(msg: "Invalid user");
+                    Fluttertoast.showToast(msg: msg.toString());
+                  } else if (state.isClientError) {
+                    Fluttertoast.showToast(msg: "Please check your network");
+                  } else if (state.isServerError) {
+                    Fluttertoast.showToast(
+                        msg: "There is some server issues.Try again");
                   }
                   return ElevatedButton(
                     onPressed: () {
-                      BlocProvider.of<LoginBloc>(context).add(Loginclick(
-                          username: username.text, password: password.text));
+                      if (username.text.isEmpty) {
+                        Fluttertoast.showToast(msg: "Please enter username");
+                      } else if (password.text.isEmpty) {
+                        Fluttertoast.showToast(msg: "Please enter password");
+                      } else {
+                        BlocProvider.of<LoginBloc>(context).add(Loginclick(
+                            username: username.text, password: password.text));
+                      }
                     },
                     style: ElevatedButton.styleFrom(primary: Colors.grey),
                     child: const Text("LOGIN"),

@@ -26,7 +26,17 @@ class PunchImpl implements PunchService {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = PunchResponse.fromJson(response.data);
-        return Right(result);
+        if (result.status.toString() == 'Error') {
+          if (result.message.toString() ==
+              'Invalid or expired authorization token') {
+            log('auth error');
+            return const Left(MainFailure.authFailure());
+          } else {
+            return const Left(MainFailure.serverFailure());
+          }
+        } else {
+          return Right(result);
+        }
       } else {
         return const Left(MainFailure.serverFailure());
       }

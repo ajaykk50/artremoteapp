@@ -6,13 +6,15 @@ class ApplyleaveState with _$ApplyleaveState {
       {required bool isLoading,
       required bool isServerError,
       required bool isClientError,
+      required bool isAuthError,
       required List<LeaveTypeResponse> leavetyperesponse,
-      required List<LeaveTypeResponse> response}) = _Getleave;
+      required LeaveApplyReponse? response}) = _Getleave;
 
   factory ApplyleaveState.initial() => const ApplyleaveState(
       isLoading: false,
       isServerError: false,
       isClientError: false,
+      isAuthError: false,
       leavetyperesponse: [],
-      response: []);
+      response: null);
 }

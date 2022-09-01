@@ -24,6 +24,8 @@ class ProfileResponse {
   String? userName;
   @JsonKey(name: 'status')
   String? status;
+  @JsonKey(name: 'message')
+  String? message;
 
   ProfileResponse(
       {this.empNumber,
@@ -35,7 +37,8 @@ class ProfileResponse {
       this.workEmail,
       this.emergencyContact,
       this.userName,
-      this.status});
+      this.status,
+      this.message});
 
   factory ProfileResponse.fromJson(Map<String, dynamic> json) {
     return _$ProfileResponseFromJson(json);

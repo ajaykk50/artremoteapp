@@ -12,10 +12,14 @@ LeaveTypeResponse _$LeaveTypeResponseFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       total: json['total'] as String?,
       used: json['used'] as String?,
+      status: json['status'] as String?,
+      message: json['message'] as String?,
     );
 
 Map<String, dynamic> _$LeaveTypeResponseToJson(LeaveTypeResponse instance) =>
     <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
       'id': instance.id,
       'name': instance.name,
       'total': instance.total,

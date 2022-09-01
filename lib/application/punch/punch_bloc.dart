@@ -1,10 +1,8 @@
-import 'package:art_remoteapp/application/login/login_bloc.dart';
-import 'package:art_remoteapp/application/splash/splash_bloc.dart';
 import 'package:art_remoteapp/domain/core/failures/main_failure.dart';
 import 'package:art_remoteapp/domain/punchinout/model/punch_response/punch_response.dart';
 import 'package:art_remoteapp/domain/punchinout/punch_service.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -22,43 +20,89 @@ class PunchBloc extends Bloc<PunchEvent, PunchState> {
     on<PunchDetails>((event, emit) async {
       emit(const PunchState(
           isLoading: true,
-          isError: false,
+          isClientError: false,
+          isServerError: false,
+          isAuthError: false,
           punchresponse: null,
           punchingresponse: null));
-      final _result = await _punchService.punchDetails(event.token);
-      final _state = _result.fold((MainFailure f) {
-        return const PunchState(
-            isLoading: false,
-            isError: true,
-            punchresponse: null,
-            punchingresponse: null);
+      final detailsresult = await _punchService.punchDetails(event.token);
+      final detailsstate = detailsresult.fold((MainFailure f) {
+        if (f is ClientFailure) {
+          return const PunchState(
+              isLoading: false,
+              isClientError: true,
+              isServerError: false,
+              isAuthError: false,
+              punchresponse: null,
+              punchingresponse: null);
+        } else if (f is ServerFailure) {
+          return const PunchState(
+              isLoading: false,
+              isClientError: false,
+              isServerError: true,
+              isAuthError: false,
+              punchresponse: null,
+              punchingresponse: null);
+        } else {
+          return const PunchState(
+              isLoading: false,
+              isClientError: false,
+              isServerError: false,
+              isAuthError: true,
+              punchresponse: null,
+              punchingresponse: null);
+        }
       }, (PunchResponse resp) {
         return PunchState(
             isLoading: false,
-            isError: false,
+            isClientError: false,
+            isServerError: false,
+            isAuthError: false,
             punchresponse: resp,
             punchingresponse: null);
       });
-      emit(_state);
+      emit(detailsstate);
     });
 
     on<OnPunchClick>((event, emit) async {
-      final _result = await _punchService.punchClick(
+      final punchresult = await _punchService.punchClick(
           event.token, event.datetime, event.comment);
-      final _state = _result.fold((MainFailure f) {
-        return const PunchState(
-            isLoading: false,
-            isError: true,
-            punchresponse: null,
-            punchingresponse: null);
+      final punchstate = punchresult.fold((MainFailure f) {
+        if (f is ClientFailure) {
+          return const PunchState(
+              isLoading: false,
+              isClientError: true,
+              isServerError: false,
+              isAuthError: false,
+              punchresponse: null,
+              punchingresponse: null);
+        } else if (f is ServerFailure) {
+          return const PunchState(
+              isLoading: false,
+              isClientError: false,
+              isServerError: true,
+              isAuthError: false,
+              punchresponse: null,
+              punchingresponse: null);
+        } else {
+          return const PunchState(
+              isLoading: false,
+              isClientError: false,
+              isServerError: false,
+              isAuthError: true,
+              punchresponse: null,
+              punchingresponse: null);
+        }
       }, (PunchingResponse resp) {
         return PunchState(
             isLoading: false,
-            isError: false,
+            isServerError: false,
+            isClientError: false,
+            isAuthError: false,
             punchresponse: null,
             punchingresponse: resp);
       });
-      emit(_state);
+      emit(punchstate);
     });
   }
 }

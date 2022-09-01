@@ -22,6 +22,7 @@ class Utility {
             actions: [
               TextButton(
                   onPressed: () {
+                    //Navigator.pop(context);
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                             builder: (context) => const ScreenSplash()),
@@ -43,10 +44,33 @@ class Utility {
             actions: [
               TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => const ScreenSplash()),
-                        (route) => false);
+                    Navigator.pop(context);
+                    // Navigator.of(context).pushAndRemoveUntil(
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const ScreenSplash()),
+                    //     (route) => false);
+                  },
+                  child: const Text('OK'))
+            ],
+          );
+        });
+  }
+
+  void showServerErrorDialog(BuildContext context, String msg) {
+    showDialog(
+        context: context,
+        builder: (ctx1) {
+          return AlertDialog(
+            title: const Text('Message'),
+            content: Text(msg),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // Navigator.of(context).pushAndRemoveUntil(
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const ScreenSplash()),
+                    //     (route) => false);
                   },
                   child: const Text('OK'))
             ],

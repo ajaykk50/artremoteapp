@@ -4,14 +4,16 @@ part of 'login_bloc.dart';
 class LoginState with _$LoginState {
   const factory LoginState(
       {required bool isLoading,
-      required bool isError,
+      required bool isServerError,
+      required bool isClientError,
       required bool isVisible,
       required LoginResponse? loginresultData,
       required bool isLogout}) = _LoginState;
 
   factory LoginState.initial() => const LoginState(
       isLoading: false,
-      isError: false,
+      isServerError: false,
+      isClientError: false,
       isVisible: false,
       loginresultData: null,
       isLogout: false);

@@ -466,9 +466,10 @@ mixin _$ApplyleaveState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isServerError => throw _privateConstructorUsedError;
   bool get isClientError => throw _privateConstructorUsedError;
+  bool get isAuthError => throw _privateConstructorUsedError;
   List<LeaveTypeResponse> get leavetyperesponse =>
       throw _privateConstructorUsedError;
-  List<LeaveTypeResponse> get response => throw _privateConstructorUsedError;
+  LeaveApplyReponse? get response => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ApplyleaveStateCopyWith<ApplyleaveState> get copyWith =>
@@ -484,8 +485,9 @@ abstract class $ApplyleaveStateCopyWith<$Res> {
       {bool isLoading,
       bool isServerError,
       bool isClientError,
+      bool isAuthError,
       List<LeaveTypeResponse> leavetyperesponse,
-      List<LeaveTypeResponse> response});
+      LeaveApplyReponse? response});
 }
 
 /// @nodoc
@@ -502,6 +504,7 @@ class _$ApplyleaveStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? isServerError = freezed,
     Object? isClientError = freezed,
+    Object? isAuthError = freezed,
     Object? leavetyperesponse = freezed,
     Object? response = freezed,
   }) {
@@ -518,6 +521,10 @@ class _$ApplyleaveStateCopyWithImpl<$Res>
           ? _value.isClientError
           : isClientError // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAuthError: isAuthError == freezed
+          ? _value.isAuthError
+          : isAuthError // ignore: cast_nullable_to_non_nullable
+              as bool,
       leavetyperesponse: leavetyperesponse == freezed
           ? _value.leavetyperesponse
           : leavetyperesponse // ignore: cast_nullable_to_non_nullable
@@ -525,7 +532,7 @@ class _$ApplyleaveStateCopyWithImpl<$Res>
       response: response == freezed
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
-              as List<LeaveTypeResponse>,
+              as LeaveApplyReponse?,
     ));
   }
 }
@@ -541,8 +548,9 @@ abstract class _$$_GetleaveCopyWith<$Res>
       {bool isLoading,
       bool isServerError,
       bool isClientError,
+      bool isAuthError,
       List<LeaveTypeResponse> leavetyperesponse,
-      List<LeaveTypeResponse> response});
+      LeaveApplyReponse? response});
 }
 
 /// @nodoc
@@ -561,6 +569,7 @@ class __$$_GetleaveCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? isServerError = freezed,
     Object? isClientError = freezed,
+    Object? isAuthError = freezed,
     Object? leavetyperesponse = freezed,
     Object? response = freezed,
   }) {
@@ -577,14 +586,18 @@ class __$$_GetleaveCopyWithImpl<$Res>
           ? _value.isClientError
           : isClientError // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAuthError: isAuthError == freezed
+          ? _value.isAuthError
+          : isAuthError // ignore: cast_nullable_to_non_nullable
+              as bool,
       leavetyperesponse: leavetyperesponse == freezed
           ? _value._leavetyperesponse
           : leavetyperesponse // ignore: cast_nullable_to_non_nullable
               as List<LeaveTypeResponse>,
       response: response == freezed
-          ? _value._response
+          ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
-              as List<LeaveTypeResponse>,
+              as LeaveApplyReponse?,
     ));
   }
 }
@@ -596,10 +609,10 @@ class _$_Getleave implements _Getleave {
       {required this.isLoading,
       required this.isServerError,
       required this.isClientError,
+      required this.isAuthError,
       required final List<LeaveTypeResponse> leavetyperesponse,
-      required final List<LeaveTypeResponse> response})
-      : _leavetyperesponse = leavetyperesponse,
-        _response = response;
+      required this.response})
+      : _leavetyperesponse = leavetyperesponse;
 
   @override
   final bool isLoading;
@@ -607,6 +620,8 @@ class _$_Getleave implements _Getleave {
   final bool isServerError;
   @override
   final bool isClientError;
+  @override
+  final bool isAuthError;
   final List<LeaveTypeResponse> _leavetyperesponse;
   @override
   List<LeaveTypeResponse> get leavetyperesponse {
@@ -614,16 +629,12 @@ class _$_Getleave implements _Getleave {
     return EqualUnmodifiableListView(_leavetyperesponse);
   }
 
-  final List<LeaveTypeResponse> _response;
   @override
-  List<LeaveTypeResponse> get response {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_response);
-  }
+  final LeaveApplyReponse? response;
 
   @override
   String toString() {
-    return 'ApplyleaveState(isLoading: $isLoading, isServerError: $isServerError, isClientError: $isClientError, leavetyperesponse: $leavetyperesponse, response: $response)';
+    return 'ApplyleaveState(isLoading: $isLoading, isServerError: $isServerError, isClientError: $isClientError, isAuthError: $isAuthError, leavetyperesponse: $leavetyperesponse, response: $response)';
   }
 
   @override
@@ -637,8 +648,10 @@ class _$_Getleave implements _Getleave {
             const DeepCollectionEquality()
                 .equals(other.isClientError, isClientError) &&
             const DeepCollectionEquality()
+                .equals(other.isAuthError, isAuthError) &&
+            const DeepCollectionEquality()
                 .equals(other._leavetyperesponse, _leavetyperesponse) &&
-            const DeepCollectionEquality().equals(other._response, _response));
+            const DeepCollectionEquality().equals(other.response, response));
   }
 
   @override
@@ -647,8 +660,9 @@ class _$_Getleave implements _Getleave {
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(isServerError),
       const DeepCollectionEquality().hash(isClientError),
+      const DeepCollectionEquality().hash(isAuthError),
       const DeepCollectionEquality().hash(_leavetyperesponse),
-      const DeepCollectionEquality().hash(_response));
+      const DeepCollectionEquality().hash(response));
 
   @JsonKey(ignore: true)
   @override
@@ -661,8 +675,9 @@ abstract class _Getleave implements ApplyleaveState {
       {required final bool isLoading,
       required final bool isServerError,
       required final bool isClientError,
+      required final bool isAuthError,
       required final List<LeaveTypeResponse> leavetyperesponse,
-      required final List<LeaveTypeResponse> response}) = _$_Getleave;
+      required final LeaveApplyReponse? response}) = _$_Getleave;
 
   @override
   bool get isLoading;
@@ -671,9 +686,11 @@ abstract class _Getleave implements ApplyleaveState {
   @override
   bool get isClientError;
   @override
+  bool get isAuthError;
+  @override
   List<LeaveTypeResponse> get leavetyperesponse;
   @override
-  List<LeaveTypeResponse> get response;
+  LeaveApplyReponse? get response;
   @override
   @JsonKey(ignore: true)
   _$$_GetleaveCopyWith<_$_Getleave> get copyWith =>

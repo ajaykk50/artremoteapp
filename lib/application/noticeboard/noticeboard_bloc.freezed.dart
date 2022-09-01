@@ -222,6 +222,7 @@ mixin _$NoticeboardState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isServerError => throw _privateConstructorUsedError;
   bool get isClientError => throw _privateConstructorUsedError;
+  bool get isAuthError => throw _privateConstructorUsedError;
   List<NoticeBoardResponse> get response => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -238,6 +239,7 @@ abstract class $NoticeboardStateCopyWith<$Res> {
       {bool isLoading,
       bool isServerError,
       bool isClientError,
+      bool isAuthError,
       List<NoticeBoardResponse> response});
 }
 
@@ -255,6 +257,7 @@ class _$NoticeboardStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? isServerError = freezed,
     Object? isClientError = freezed,
+    Object? isAuthError = freezed,
     Object? response = freezed,
   }) {
     return _then(_value.copyWith(
@@ -269,6 +272,10 @@ class _$NoticeboardStateCopyWithImpl<$Res>
       isClientError: isClientError == freezed
           ? _value.isClientError
           : isClientError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAuthError: isAuthError == freezed
+          ? _value.isAuthError
+          : isAuthError // ignore: cast_nullable_to_non_nullable
               as bool,
       response: response == freezed
           ? _value.response
@@ -289,6 +296,7 @@ abstract class _$$_NoticeboardStateCopyWith<$Res>
       {bool isLoading,
       bool isServerError,
       bool isClientError,
+      bool isAuthError,
       List<NoticeBoardResponse> response});
 }
 
@@ -308,6 +316,7 @@ class __$$_NoticeboardStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? isServerError = freezed,
     Object? isClientError = freezed,
+    Object? isAuthError = freezed,
     Object? response = freezed,
   }) {
     return _then(_$_NoticeboardState(
@@ -322,6 +331,10 @@ class __$$_NoticeboardStateCopyWithImpl<$Res>
       isClientError: isClientError == freezed
           ? _value.isClientError
           : isClientError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAuthError: isAuthError == freezed
+          ? _value.isAuthError
+          : isAuthError // ignore: cast_nullable_to_non_nullable
               as bool,
       response: response == freezed
           ? _value._response
@@ -338,6 +351,7 @@ class _$_NoticeboardState implements _NoticeboardState {
       {required this.isLoading,
       required this.isServerError,
       required this.isClientError,
+      required this.isAuthError,
       required final List<NoticeBoardResponse> response})
       : _response = response;
 
@@ -347,6 +361,8 @@ class _$_NoticeboardState implements _NoticeboardState {
   final bool isServerError;
   @override
   final bool isClientError;
+  @override
+  final bool isAuthError;
   final List<NoticeBoardResponse> _response;
   @override
   List<NoticeBoardResponse> get response {
@@ -356,7 +372,7 @@ class _$_NoticeboardState implements _NoticeboardState {
 
   @override
   String toString() {
-    return 'NoticeboardState(isLoading: $isLoading, isServerError: $isServerError, isClientError: $isClientError, response: $response)';
+    return 'NoticeboardState(isLoading: $isLoading, isServerError: $isServerError, isClientError: $isClientError, isAuthError: $isAuthError, response: $response)';
   }
 
   @override
@@ -369,6 +385,8 @@ class _$_NoticeboardState implements _NoticeboardState {
                 .equals(other.isServerError, isServerError) &&
             const DeepCollectionEquality()
                 .equals(other.isClientError, isClientError) &&
+            const DeepCollectionEquality()
+                .equals(other.isAuthError, isAuthError) &&
             const DeepCollectionEquality().equals(other._response, _response));
   }
 
@@ -378,6 +396,7 @@ class _$_NoticeboardState implements _NoticeboardState {
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(isServerError),
       const DeepCollectionEquality().hash(isClientError),
+      const DeepCollectionEquality().hash(isAuthError),
       const DeepCollectionEquality().hash(_response));
 
   @JsonKey(ignore: true)
@@ -391,6 +410,7 @@ abstract class _NoticeboardState implements NoticeboardState {
       {required final bool isLoading,
       required final bool isServerError,
       required final bool isClientError,
+      required final bool isAuthError,
       required final List<NoticeBoardResponse> response}) = _$_NoticeboardState;
 
   @override
@@ -399,6 +419,8 @@ abstract class _NoticeboardState implements NoticeboardState {
   bool get isServerError;
   @override
   bool get isClientError;
+  @override
+  bool get isAuthError;
   @override
   List<NoticeBoardResponse> get response;
   @override

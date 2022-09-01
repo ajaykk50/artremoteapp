@@ -11,4 +11,7 @@ class ApiEndPoints {
   static const profileimage = "$kBaseUrl/profile/picture/";
   static const profile = "$kBaseUrl/profile";
   static const changepasswd = "$kBaseUrl/profile/reset";
+  static const leavedetails = "$kBaseUrl/leaves";
+  static const leavecancel = "$kBaseUrl/leaves/leave_cancel";
+  static const leavestaken = "$kBaseUrl/leaves/taken/";
 }

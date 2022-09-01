@@ -593,7 +593,8 @@ abstract class Logoutclick implements LoginEvent {
 /// @nodoc
 mixin _$LoginState {
   bool get isLoading => throw _privateConstructorUsedError;
-  bool get isError => throw _privateConstructorUsedError;
+  bool get isServerError => throw _privateConstructorUsedError;
+  bool get isClientError => throw _privateConstructorUsedError;
   bool get isVisible => throw _privateConstructorUsedError;
   LoginResponse? get loginresultData => throw _privateConstructorUsedError;
   bool get isLogout => throw _privateConstructorUsedError;
@@ -610,7 +611,8 @@ abstract class $LoginStateCopyWith<$Res> {
       _$LoginStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
-      bool isError,
+      bool isServerError,
+      bool isClientError,
       bool isVisible,
       LoginResponse? loginresultData,
       bool isLogout});
@@ -627,7 +629,8 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? isError = freezed,
+    Object? isServerError = freezed,
+    Object? isClientError = freezed,
     Object? isVisible = freezed,
     Object? loginresultData = freezed,
     Object? isLogout = freezed,
@@ -637,9 +640,13 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isError: isError == freezed
-          ? _value.isError
-          : isError // ignore: cast_nullable_to_non_nullable
+      isServerError: isServerError == freezed
+          ? _value.isServerError
+          : isServerError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isClientError: isClientError == freezed
+          ? _value.isClientError
+          : isClientError // ignore: cast_nullable_to_non_nullable
               as bool,
       isVisible: isVisible == freezed
           ? _value.isVisible
@@ -666,7 +673,8 @@ abstract class _$$_LoginStateCopyWith<$Res>
   @override
   $Res call(
       {bool isLoading,
-      bool isError,
+      bool isServerError,
+      bool isClientError,
       bool isVisible,
       LoginResponse? loginresultData,
       bool isLogout});
@@ -685,7 +693,8 @@ class __$$_LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? isError = freezed,
+    Object? isServerError = freezed,
+    Object? isClientError = freezed,
     Object? isVisible = freezed,
     Object? loginresultData = freezed,
     Object? isLogout = freezed,
@@ -695,9 +704,13 @@ class __$$_LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isError: isError == freezed
-          ? _value.isError
-          : isError // ignore: cast_nullable_to_non_nullable
+      isServerError: isServerError == freezed
+          ? _value.isServerError
+          : isServerError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isClientError: isClientError == freezed
+          ? _value.isClientError
+          : isClientError // ignore: cast_nullable_to_non_nullable
               as bool,
       isVisible: isVisible == freezed
           ? _value.isVisible
@@ -720,7 +733,8 @@ class __$$_LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
 class _$_LoginState implements _LoginState {
   const _$_LoginState(
       {required this.isLoading,
-      required this.isError,
+      required this.isServerError,
+      required this.isClientError,
       required this.isVisible,
       required this.loginresultData,
       required this.isLogout});
@@ -728,7 +742,9 @@ class _$_LoginState implements _LoginState {
   @override
   final bool isLoading;
   @override
-  final bool isError;
+  final bool isServerError;
+  @override
+  final bool isClientError;
   @override
   final bool isVisible;
   @override
@@ -738,7 +754,7 @@ class _$_LoginState implements _LoginState {
 
   @override
   String toString() {
-    return 'LoginState(isLoading: $isLoading, isError: $isError, isVisible: $isVisible, loginresultData: $loginresultData, isLogout: $isLogout)';
+    return 'LoginState(isLoading: $isLoading, isServerError: $isServerError, isClientError: $isClientError, isVisible: $isVisible, loginresultData: $loginresultData, isLogout: $isLogout)';
   }
 
   @override
@@ -747,7 +763,10 @@ class _$_LoginState implements _LoginState {
         (other.runtimeType == runtimeType &&
             other is _$_LoginState &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
-            const DeepCollectionEquality().equals(other.isError, isError) &&
+            const DeepCollectionEquality()
+                .equals(other.isServerError, isServerError) &&
+            const DeepCollectionEquality()
+                .equals(other.isClientError, isClientError) &&
             const DeepCollectionEquality().equals(other.isVisible, isVisible) &&
             const DeepCollectionEquality()
                 .equals(other.loginresultData, loginresultData) &&
@@ -758,7 +777,8 @@ class _$_LoginState implements _LoginState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(isLoading),
-      const DeepCollectionEquality().hash(isError),
+      const DeepCollectionEquality().hash(isServerError),
+      const DeepCollectionEquality().hash(isClientError),
       const DeepCollectionEquality().hash(isVisible),
       const DeepCollectionEquality().hash(loginresultData),
       const DeepCollectionEquality().hash(isLogout));
@@ -772,7 +792,8 @@ class _$_LoginState implements _LoginState {
 abstract class _LoginState implements LoginState {
   const factory _LoginState(
       {required final bool isLoading,
-      required final bool isError,
+      required final bool isServerError,
+      required final bool isClientError,
       required final bool isVisible,
       required final LoginResponse? loginresultData,
       required final bool isLogout}) = _$_LoginState;
@@ -780,7 +801,9 @@ abstract class _LoginState implements LoginState {
   @override
   bool get isLoading;
   @override
-  bool get isError;
+  bool get isServerError;
+  @override
+  bool get isClientError;
   @override
   bool get isVisible;
   @override

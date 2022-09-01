@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:art_remoteapp/application/noticeboard/noticeboard_bloc.dart';
 import 'package:art_remoteapp/core/colors/colors.dart';
 import 'package:art_remoteapp/core/constants.dart';
+import 'package:art_remoteapp/core/utility.dart';
 import 'package:art_remoteapp/domain/noticeboard/model/notice_board_response/notice_board_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +33,21 @@ class ScreenNoticeBoardPage extends StatelessWidget {
       ),
       body: BlocBuilder<NoticeboardBloc, NoticeboardState>(
         builder: (context, state) {
+          if (state.isClientError) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Utility.getInstance()
+                  .showClientErrorDialog(context, "Please check your network");
+            });
+          } else if (state.isServerError) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Utility.getInstance().showServerErrorDialog(
+                  context, "There is some problem.Try again later");
+            });
+          } else if (state.isAuthError) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Utility.getInstance().showErrorDialog(context);
+            });
+          }
           return SafeArea(
               child: NoticeList(
             response: state.response,

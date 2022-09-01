@@ -19,7 +19,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<Initialize>((event, emit) {
       emit(const LoginState(
           isLoading: false,
-          isError: false,
+          isServerError: false,
+          isClientError: false,
           isVisible: false,
           loginresultData: null,
           isLogout: false));
@@ -29,7 +30,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final currentStatevalue = state.isVisible;
       emit(LoginState(
           isLoading: false,
-          isError: false,
+          isClientError: false,
+          isServerError: false,
           isVisible: !currentStatevalue,
           loginresultData: null,
           isLogout: false));
@@ -38,44 +40,51 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<Loginclick>((event, emit) async {
       emit(const LoginState(
           isLoading: true,
-          isError: false,
+          isServerError: false,
+          isClientError: false,
           isVisible: false,
           loginresultData: null,
           isLogout: false));
-      final _result = await _loginService.userLogin(
+      final result = await _loginService.userLogin(
           username: event.username, password: event.password);
-      final _state = _result.fold(
+      final resultstate = result.fold(
         (MainFailure f) {
           if (f is ClientFailure) {
-            print("aaaaasssssddddddd");
+            return const LoginState(
+                isLoading: false,
+                isServerError: false,
+                isClientError: true,
+                isVisible: false,
+                loginresultData: null,
+                isLogout: false);
+          } else {
+            return const LoginState(
+                isLoading: false,
+                isServerError: true,
+                isClientError: false,
+                isVisible: false,
+                loginresultData: null,
+                isLogout: false);
           }
-          if (f is ServerFailure) {
-            print("aaaaasssssddfffffrrrrrddddddd");
-          }
-          // print("aaaaasssssddddddd");
-          return const LoginState(
-              isLoading: false,
-              isError: true,
-              isVisible: false,
-              loginresultData: null,
-              isLogout: false);
         },
         (LoginResponse response) {
           return LoginState(
               isLoading: false,
-              isError: false,
+              isServerError: false,
+              isClientError: false,
               isVisible: false,
               loginresultData: response,
               isLogout: false);
         },
       );
-      emit(_state);
+      emit(resultstate);
     });
 
     on<Logoutclick>(((event, emit) {
       emit(const LoginState(
           isLoading: false,
-          isError: false,
+          isClientError: false,
+          isServerError: false,
           isVisible: false,
           loginresultData: null,
           isLogout: true));

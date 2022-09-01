@@ -12,13 +12,18 @@ class PunchResponse {
   double? todaysHours;
   @JsonKey(name: 'weeksHours')
   double? weeksHours;
+  @JsonKey(name: 'status')
+  String? status;
+  @JsonKey(name: 'message')
+  String? message;
 
-  PunchResponse({
-    this.lastPunchTime,
-    this.punchState,
-    this.todaysHours,
-    this.weeksHours,
-  });
+  PunchResponse(
+      {this.lastPunchTime,
+      this.punchState,
+      this.todaysHours,
+      this.weeksHours,
+      this.status,
+      this.message});
 
   factory PunchResponse.fromJson(Map<String, dynamic> json) {
     return _$PunchResponseFromJson(json);

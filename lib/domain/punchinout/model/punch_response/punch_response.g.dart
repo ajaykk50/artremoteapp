@@ -12,6 +12,8 @@ PunchResponse _$PunchResponseFromJson(Map<String, dynamic> json) =>
       punchState: json['punch_state'] as String?,
       todaysHours: (json['todaysHours'] as num?)?.toDouble(),
       weeksHours: (json['weeksHours'] as num?)?.toDouble(),
+      status: json['status'] as String?,
+      message: json['message'] as String?,
     );
 
 Map<String, dynamic> _$PunchResponseToJson(PunchResponse instance) =>
@@ -20,4 +22,6 @@ Map<String, dynamic> _$PunchResponseToJson(PunchResponse instance) =>
       'punch_state': instance.punchState,
       'todaysHours': instance.todaysHours,
       'weeksHours': instance.weeksHours,
+      'status': instance.status,
+      'message': instance.message,
     };

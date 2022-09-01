@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/core/api_end_points.dart';
+import '../../domain/helpdesk/model/help_request_response/help_request_response.dart';
 
 @LazySingleton(as: TopicService)
 class TopicImpl extends TopicService {
@@ -51,7 +52,7 @@ class TopicImpl extends TopicService {
   }
 
   @override
-  Future<Either<MainFailure, TopicResponse>> sendHelp({
+  Future<Either<MainFailure, HelpRequestResponse>> sendHelp({
     required String token,
     required String topicid,
     required String subject,
@@ -67,18 +68,33 @@ class TopicImpl extends TopicService {
         "content": content,
         "files": files,
       };
+
+      // log("params" + params.toString());
+      // FormData formData = FormData.fromMap({
+      //   "file": await MultipartFile.fromFile(files, filename: "fileName"),
+      // });
       final Response response = await Dio(BaseOptions()).post(
         ApiEndPoints.sendhelp,
         options: Options(headers: {"authorization": "Bearer $token"}),
-        data: jsonEncode(params),
+        data: params,
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final result = TopicResponse.fromJson(response.data);
-        return Right(result);
+        final result = HelpRequestResponse.fromJson(response.data);
+        if (result.status == 'Error') {
+          if (result.message == 'Invalid or expired authorization token') {
+            return const Left(MainFailure.authFailure());
+          } else {
+            return Right(result);
+          }
+        } else {
+          log('success');
+          return Right(result);
+        }
       } else {
         return const Left(MainFailure.serverFailure());
       }
     } catch (e) {
+      log(e.toString());
       return const Left(MainFailure.clientFailure());
     }
   }

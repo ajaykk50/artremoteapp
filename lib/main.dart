@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'application/applyleave/applyleave_bloc.dart';
 import 'application/helpdesk/helpdesk_bloc.dart';
 import 'application/imageselection/image_selection_bloc.dart';
+import 'application/leavedetails/leavedetails_bloc.dart';
 import 'application/login/login_bloc.dart';
 import 'application/noticeboard/noticeboard_bloc.dart';
 import 'application/preference/preference_bloc.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (ctx) => getIt<ApplyleaveBloc>()),
         BlocProvider(create: (ctx) => getIt<NoticeboardBloc>()),
         BlocProvider(create: (ctx) => getIt<ProfileBloc>()),
+        BlocProvider(create: (ctx) => getIt<LeavedetailsBloc>()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

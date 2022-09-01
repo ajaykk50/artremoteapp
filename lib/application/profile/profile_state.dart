@@ -6,6 +6,7 @@ class ProfileState with _$ProfileState {
       {required bool isLoading,
       required bool isServerError,
       required bool isClientError,
+      required bool isAuthError,
       required ProfileResponse? response,
       required ProfileResponse? updateresp}) = _ProfileState;
 
@@ -13,6 +14,7 @@ class ProfileState with _$ProfileState {
       isLoading: false,
       isServerError: false,
       isClientError: false,
+      isAuthError: false,
       response: null,
       updateresp: null);
 }

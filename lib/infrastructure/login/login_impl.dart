@@ -27,7 +27,7 @@ class LoginImpl implements LoginService {
             headers: {HttpHeaders.connectionHeader: "application/json"}),
         data: jsonEncode(params),
       );
-      log('response...${response.statusCode}');
+      log('response...${response.data.toString()}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = LoginResponse.fromJson(response.data);

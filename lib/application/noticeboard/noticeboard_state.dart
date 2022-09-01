@@ -6,6 +6,7 @@ class NoticeboardState with _$NoticeboardState {
     required bool isLoading,
     required bool isServerError,
     required bool isClientError,
+    required bool isAuthError,
     required List<NoticeBoardResponse> response,
   }) = _NoticeboardState;
 
@@ -13,5 +14,6 @@ class NoticeboardState with _$NoticeboardState {
       isLoading: false,
       isServerError: false,
       isClientError: false,
+      isAuthError: false,
       response: []);
 }
