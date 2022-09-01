@@ -21,6 +21,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           isLoading: false,
           isServerError: false,
           isClientError: false,
+          isAuthError: false,
           isVisible: false,
           loginresultData: null,
           isLogout: false));
@@ -32,6 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           isLoading: false,
           isClientError: false,
           isServerError: false,
+          isAuthError: false,
           isVisible: !currentStatevalue,
           loginresultData: null,
           isLogout: false));
@@ -42,6 +44,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           isLoading: true,
           isServerError: false,
           isClientError: false,
+          isAuthError: false,
           isVisible: false,
           loginresultData: null,
           isLogout: false));
@@ -54,6 +57,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
                 isLoading: false,
                 isServerError: false,
                 isClientError: true,
+                isAuthError: false,
                 isVisible: false,
                 loginresultData: null,
                 isLogout: false);
@@ -62,6 +66,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
                 isLoading: false,
                 isServerError: true,
                 isClientError: false,
+                isAuthError: false,
                 isVisible: false,
                 loginresultData: null,
                 isLogout: false);
@@ -72,6 +77,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               isLoading: false,
               isServerError: false,
               isClientError: false,
+              isAuthError: false,
               isVisible: false,
               loginresultData: response,
               isLogout: false);
@@ -85,9 +91,65 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           isLoading: false,
           isClientError: false,
           isServerError: false,
+          isAuthError: false,
           isVisible: false,
           loginresultData: null,
           isLogout: true));
     }));
+
+    on<RefreshKey>((event, emit) async {
+      emit(const LoginState(
+          isLoading: true,
+          isServerError: false,
+          isClientError: false,
+          isAuthError: false,
+          isVisible: false,
+          loginresultData: null,
+          isLogout: false));
+      final result = await _loginService.refreshLogin(refreshkey: event.key);
+      final resultstate = result.fold(
+        (MainFailure f) {
+          if (f is ClientFailure) {
+            return const LoginState(
+                isLoading: false,
+                isServerError: false,
+                isClientError: true,
+                isAuthError: false,
+                isVisible: false,
+                loginresultData: null,
+                isLogout: false);
+          } else if (f is AuthFailure) {
+            return const LoginState(
+                isLoading: false,
+                isServerError: false,
+                isClientError: false,
+                isAuthError: true,
+                isVisible: false,
+                loginresultData: null,
+                isLogout: false);
+          } else {
+            return const LoginState(
+                isLoading: false,
+                isServerError: true,
+                isClientError: false,
+                isAuthError: false,
+                isVisible: false,
+                loginresultData: null,
+                isLogout: false);
+          }
+        },
+        (LoginResponse response) {
+          return LoginState(
+              isLoading: false,
+              isServerError: false,
+              isClientError: false,
+              isAuthError: false,
+              isVisible: false,
+              loginresultData: response,
+              isLogout: false);
+        },
+      );
+      emit(resultstate);
+    });
   }
 }

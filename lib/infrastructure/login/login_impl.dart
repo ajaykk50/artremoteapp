@@ -42,4 +42,32 @@ class LoginImpl implements LoginService {
       return const Left(MainFailure.clientFailure());
     }
   }
+
+  @override
+  Future<Either<MainFailure, LoginResponse>> refreshLogin(
+      {required String refreshkey}) async {
+    try {
+      var params = {
+        "refreshToken": "Bearer $refreshkey",
+      };
+      final Response response = await Dio(BaseOptions()).post(
+        ApiEndPoints.refresh,
+        options: Options(headers: {"authorization": "Bearer $refreshkey"}),
+        data: jsonEncode(params),
+      );
+      log('refresh.......${response.data.toString()}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final result = LoginResponse.fromJson(response.data);
+        return Right(result);
+      } else {
+        return const Left(MainFailure.serverFailure());
+      }
+    } catch (e) {
+      //log(e.toString());
+      //  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+
+      return const Left(MainFailure.clientFailure());
+    }
+  }
 }

@@ -100,6 +100,9 @@ class ScreenLoginPage extends StatelessWidget {
                       prefs.setAuthToken(
                           state.loginresultData?.token?.accesstoken?.token ??
                               "");
+                      prefs.setRefreshToken(
+                          state.loginresultData?.token?.refreshToken?.token ??
+                              "");
                       savedDataToStorage(state.loginresultData);
                       Navigator.pushReplacement(
                           context,

@@ -6,9 +6,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/sessionmanager.dart';
 import '../home_page/screen_home_page.dart';
 import '../login_page/screen_login_page.dart';
 import '../main_page/screen_main_page.dart';
+
+SessionManager prefs = SessionManager();
 
 class ScreenSplash extends StatelessWidget {
   const ScreenSplash({Key? key}) : super(key: key);
@@ -26,13 +29,16 @@ class ScreenSplash extends StatelessWidget {
             if (state.isLoading) {
               return const splashview();
             } else {
-              var token = getsavedData();
-              // if (token != null || token != '') {
-              //   return ScreenMainPage();
-              // } else {
-              return const ScreenLoginPage();
-              //return ScreenMainPage();
-              // }
+              var token = "";
+              Future<String> authToken = prefs.getRefreshToken();
+              authToken.then((data) {
+                token = data.toString();
+              });
+              if (token != "") {
+                return const ScreenLoginPage();
+              } else {
+                return ScreenMainPage();
+              }
             }
           },
         ),

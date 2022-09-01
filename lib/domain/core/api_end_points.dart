@@ -14,4 +14,5 @@ class ApiEndPoints {
   static const leavedetails = "$kBaseUrl/leaves";
   static const leavecancel = "$kBaseUrl/leaves/leave_cancel";
   static const leavestaken = "$kBaseUrl/leaves/taken/";
+  static const refresh = "$kBaseUrl/login/refresh";
 }

@@ -7,5 +7,7 @@ class LoginEvent with _$LoginEvent {
   const factory LoginEvent.loginclick(
       {required String username, required String password}) = Loginclick;
 
+  const factory LoginEvent.refreshKey({required String key}) = RefreshKey;
+
   const factory LoginEvent.logoutclick() = Logoutclick;
 }

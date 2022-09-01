@@ -6,6 +6,7 @@ class LoginState with _$LoginState {
       {required bool isLoading,
       required bool isServerError,
       required bool isClientError,
+      required bool isAuthError,
       required bool isVisible,
       required LoginResponse? loginresultData,
       required bool isLogout}) = _LoginState;
@@ -14,6 +15,7 @@ class LoginState with _$LoginState {
       isLoading: false,
       isServerError: false,
       isClientError: false,
+      isAuthError: false,
       isVisible: false,
       loginresultData: null,
       isLogout: false);
