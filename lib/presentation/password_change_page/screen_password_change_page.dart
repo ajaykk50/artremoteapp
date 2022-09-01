@@ -10,6 +10,7 @@ import '../../core/utility.dart';
 
 SessionManager prefs = SessionManager();
 String token = "";
+bool isProgressDialogshowing = false;
 
 TextEditingController currentpasswdController = TextEditingController();
 TextEditingController newpasswdController = TextEditingController();
@@ -45,8 +46,12 @@ class ScreenPasswordChangePage extends StatelessWidget {
           padding: kPadding,
           child: BlocConsumer<ProfileBloc, ProfileState>(
             listener: (context, state) {
-              Navigator.pop(context);
+              if (isProgressDialogshowing) {
+                Navigator.pop(context);
+                isProgressDialogshowing = false;
+              }
               if (state.isLoading) {
+                showLoaderDialog(context);
               } else if (state.isServerError) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Utility.getInstance().showServerErrorDialog(
@@ -140,7 +145,7 @@ class ScreenPasswordChangePage extends StatelessWidget {
                           confirmpasswdController.text) {
                         Fluttertoast.showToast(msg: "Password mis match");
                       } else {
-                        showLoaderDialog(context);
+                        //showLoaderDialog(context);
                         BlocProvider.of<ProfileBloc>(context).add(Changepasswd(
                             token: token,
                             currentpasswd: currentpasswdController.text,
@@ -161,6 +166,7 @@ class ScreenPasswordChangePage extends StatelessWidget {
 }
 
 void showLoaderDialog(BuildContext context) {
+  isProgressDialogshowing = true;
   AlertDialog alert = AlertDialog(
     content: Row(
       children: [

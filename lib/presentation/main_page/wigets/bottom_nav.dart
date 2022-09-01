@@ -8,9 +8,13 @@ class BottomNavigationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // indexChangeNotifier.value = 0;
+    });
     return ValueListenableBuilder(
         valueListenable: indexChangeNotifier,
         builder: (context, int newIndex, _) {
+          // indexChangeNotifier.value = 0;
           return BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             currentIndex: newIndex,
@@ -31,7 +35,7 @@ class BottomNavigationWidget extends StatelessWidget {
                   icon: Icon(Icons.person), label: "Profile"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.calendar_month), label: "Leave Details"),
-              BottomNavigationBarItem(icon: Icon(Icons.logout), label: "Logout")
+              // BottomNavigationBarItem(icon: Icon(Icons.logout), label: "Logout")
             ],
           );
         });

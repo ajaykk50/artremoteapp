@@ -12,6 +12,7 @@ import '../../core/sessionmanager.dart';
 
 String token = "";
 SessionManager prefs = SessionManager();
+bool isProgressDialogshowing = false;
 
 class ScreenNoticeBoardPage extends StatelessWidget {
   const ScreenNoticeBoardPage({Key? key}) : super(key: key);
@@ -33,7 +34,16 @@ class ScreenNoticeBoardPage extends StatelessWidget {
       ),
       body: BlocBuilder<NoticeboardBloc, NoticeboardState>(
         builder: (context, state) {
-          if (state.isClientError) {
+          if (isProgressDialogshowing) {
+            Navigator.pop(context);
+            isProgressDialogshowing = false;
+          }
+
+          if (state.isLoading) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              showLoaderDialog(context);
+            });
+          } else if (state.isClientError) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Utility.getInstance()
                   .showClientErrorDialog(context, "Please check your network");
@@ -116,4 +126,24 @@ class NoticeList extends StatelessWidget {
       ),
     );
   }
+}
+
+void showLoaderDialog(BuildContext context) {
+  isProgressDialogshowing = true;
+  AlertDialog alert = AlertDialog(
+    content: Row(
+      children: [
+        const CircularProgressIndicator(),
+        Container(
+            margin: EdgeInsets.only(left: 7), child: const Text("Loading...")),
+      ],
+    ),
+  );
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

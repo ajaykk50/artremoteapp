@@ -22,6 +22,7 @@ var weeksignin = 0.00;
 var lastpunchTime = "";
 var dateLocal = "";
 var punchedType = "";
+bool isProgressDialogshowing = false;
 
 SessionManager prefs = SessionManager();
 
@@ -50,7 +51,16 @@ class ScreenPunchPage extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: BlocBuilder<PunchBloc, PunchState>(
               builder: (context, state) {
-                if (state.isClientError) {
+                if (isProgressDialogshowing) {
+                  Navigator.pop(context);
+                  isProgressDialogshowing = false;
+                }
+
+                if (state.isLoading) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    showLoaderDialog(context);
+                  });
+                } else if (state.isClientError) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     Utility.getInstance().showClientErrorDialog(
                         context, "Please check your network");
@@ -230,4 +240,24 @@ void getWeekTime(double weekval) {
   } else {
     weeksigninTime = "";
   }
+}
+
+void showLoaderDialog(BuildContext context) {
+  isProgressDialogshowing = true;
+  AlertDialog alert = AlertDialog(
+    content: Row(
+      children: [
+        const CircularProgressIndicator(),
+        Container(
+            margin: EdgeInsets.only(left: 7), child: const Text("Loading...")),
+      ],
+    ),
+  );
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

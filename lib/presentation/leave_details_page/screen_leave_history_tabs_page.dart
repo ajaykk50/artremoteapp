@@ -20,6 +20,7 @@ DateTime _selectedFromDate = DateTime.now();
 DateTime _selectedToDate = DateTime.now();
 TextEditingController fromdate = TextEditingController();
 TextEditingController todate = TextEditingController();
+var isProgressDialogshowing = false;
 
 var total_casual = 0.0;
 var usesd_casual = 0.0;
@@ -74,8 +75,13 @@ class ScreenLeaveHistoryTabsPage extends StatelessWidget {
               children: [
                 BlocConsumer<LeavedetailsBloc, LeavedetailsState>(
                   listener: (context, state) {
+                    if (isProgressDialogshowing) {
+                      Navigator.pop(context);
+                      isProgressDialogshowing = false;
+                    }
+
                     if (state.isLoading) {
-                      // showLoaderDialog(context);
+                      showLoaderDialog(context);
                     } else if (state.isServerError) {
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         Utility.getInstance().showServerErrorDialog(
@@ -336,11 +342,12 @@ class ScreenLeaveHistoryTabsPage extends StatelessWidget {
                                     crossAxisSpacing: 10,
                                     mainAxisSpacing: 10),
                             itemBuilder: ((context, index) {
-                              leaveused =
-                                  countdetails?[index].leaveUsed?.toString() ??
-                                      "";
-                              leavename =
-                                  countdetails?[index].name.toString() ?? "";
+                              leaveused = double.parse(countdetails?[index]
+                                          .leaveUsed
+                                          .toString() ??
+                                      "0.0")
+                                  .toStringAsFixed(1);
+                              leavename = countdetails?[index].name ?? "";
                               return GridTile(
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -492,6 +499,8 @@ showAlertDialog(BuildContext context, String? leaveid, String token) {
     onPressed: () {
       BlocProvider.of<LeavedetailsBloc>(context)
           .add(Deleteleave(token: token, id: leaveid.toString()));
+
+      Navigator.pop(context);
     },
   );
 
@@ -549,4 +558,24 @@ void _selectToDate(BuildContext context) async {
       ..selection = TextSelection.fromPosition(TextPosition(
           offset: fromdate.text.length, affinity: TextAffinity.upstream));
   }
+}
+
+void showLoaderDialog(BuildContext context) {
+  isProgressDialogshowing = true;
+  AlertDialog alert = AlertDialog(
+    content: Row(
+      children: [
+        const CircularProgressIndicator(),
+        Container(
+            margin: EdgeInsets.only(left: 7), child: const Text("Loading...")),
+      ],
+    ),
+  );
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

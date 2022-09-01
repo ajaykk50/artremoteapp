@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:art_remoteapp/application/profile/profile_bloc.dart';
 import 'package:art_remoteapp/core/colors/colors.dart';
 import 'package:art_remoteapp/core/constants.dart';
@@ -10,6 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../core/utility.dart';
+import '../main_page/wigets/bottom_nav.dart';
+import '../splash_page/screen_splash_page.dart';
+
+//ValueNotifier<int> indexChangeNotifier = ValueNotifier(0);
 
 SessionManager prefs = SessionManager();
 String firstname = "";
@@ -20,6 +22,7 @@ String email = "";
 String workemail = "";
 String emergencycontact = "";
 String token = "";
+bool isProgressDialogshowing = false;
 
 TextEditingController emailController = TextEditingController();
 TextEditingController workemailController = TextEditingController();
@@ -54,8 +57,13 @@ class ScreenProfilePage extends StatelessWidget {
               borderRadius: BorderRadius.circular(10)),
           child: BlocConsumer<ProfileBloc, ProfileState>(
             listener: (context, state) {
+              if (isProgressDialogshowing) {
+                Navigator.pop(context);
+                isProgressDialogshowing = false;
+              }
+
               if (state.isLoading) {
-                // showLoaderDialog(context);
+                showLoaderDialog(context);
               } else if (state.isServerError) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Utility.getInstance().showServerErrorDialog(
@@ -71,7 +79,6 @@ class ScreenProfilePage extends StatelessWidget {
                   Utility.getInstance().showErrorDialog(context);
                 });
               } else if (state.updateresp != null) {
-                Navigator.pop(context);
                 if (state.updateresp?.status == 'Success') {
                   Fluttertoast.showToast(msg: "Successfully updates");
                 } else {
@@ -91,9 +98,6 @@ class ScreenProfilePage extends StatelessWidget {
                 emergencycontact = state.response?.emergencyContact ?? "";
                 username = state.response?.userName ?? "";
 
-                log("firstname" + firstname);
-                log("email" + email);
-
                 emailController.text = email;
                 mobileController.text = mobile;
                 workemailController.text = workemail;
@@ -102,6 +106,18 @@ class ScreenProfilePage extends StatelessWidget {
 
               return ListView(
                 children: [
+                  Container(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.logout,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        showAlertDialog(context);
+                      },
+                    ),
+                  ),
                   const InkWell(
                     child: CircleAvatar(
                       backgroundColor: Colors.black,
@@ -216,7 +232,7 @@ class ScreenProfilePage extends StatelessWidget {
                       } else if (emgcontactController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Enter emergency contact");
                       } else {
-                        showLoaderDialog(context);
+                        //  showLoaderDialog(context);
                         BlocProvider.of<ProfileBloc>(context).add(Updateprofile(
                             token: token,
                             mobile: mobileController.text,
@@ -259,6 +275,7 @@ class ScreenProfilePage extends StatelessWidget {
 }
 
 void showLoaderDialog(BuildContext context) {
+  isProgressDialogshowing = true;
   AlertDialog alert = AlertDialog(
     content: Row(
       children: [
@@ -270,6 +287,43 @@ void showLoaderDialog(BuildContext context) {
   );
   showDialog(
     barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+showAlertDialog(BuildContext context) {
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: const Text("Cancel"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+  Widget continueButton = TextButton(
+    child: const Text("Continue"),
+    onPressed: () {
+      indexChangeNotifier.value = 0;
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const ScreenSplash()),
+          (route) => false);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Text("Exit"),
+    content: const Text("Are you sure to exit from this Application?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
     context: context,
     builder: (BuildContext context) {
       return alert;

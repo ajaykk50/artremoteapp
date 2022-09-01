@@ -23,6 +23,7 @@ String _selectedLeaveTypeId = "";
 String _selectedDuration = "";
 String token = "";
 SessionManager prefs = SessionManager();
+bool isProgressDialogshowing = false;
 
 TextEditingController fromdate = TextEditingController();
 TextEditingController todate = TextEditingController();
@@ -63,7 +64,14 @@ class ScreenApplyLeavePage extends StatelessWidget {
             children: [
               BlocConsumer<ApplyleaveBloc, ApplyleaveState>(
                 listener: (context, state) {
-                  if (state.isServerError) {
+                  if (isProgressDialogshowing) {
+                    Navigator.pop(context);
+                    isProgressDialogshowing = false;
+                  }
+
+                  if (state.isLoading) {
+                    showLoaderDialog(context);
+                  } else if (state.isServerError) {
                     Utility.getInstance().showServerErrorDialog(
                         context, "There is some problem.Please try later");
                   } else if (state.isClientError) {
@@ -226,7 +234,6 @@ class ScreenApplyLeavePage extends StatelessWidget {
                     } else if (_selectedDuration == "Afternoon") {
                       durationId = "2";
                     }
-                    showLoaderDialog(context);
                     BlocProvider.of<ApplyleaveBloc>(context).add(Submitleave(
                         token: token,
                         ccMail: ccmail.text,
@@ -406,6 +413,7 @@ class ErrorDialog extends StatelessWidget {
 }
 
 void showLoaderDialog(BuildContext context) {
+  isProgressDialogshowing = true;
   AlertDialog alert = AlertDialog(
     content: Row(
       children: [

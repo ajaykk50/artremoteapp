@@ -124,6 +124,7 @@ class ScreenHomePage extends StatelessWidget {
                                           children: [
                                             InkWell(
                                               onTap: () {
+                                                Navigator.pop(context);
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
@@ -153,6 +154,7 @@ class ScreenHomePage extends StatelessWidget {
                                             ),
                                             InkWell(
                                               onTap: () {
+                                                Navigator.pop(context);
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
@@ -182,6 +184,7 @@ class ScreenHomePage extends StatelessWidget {
                                             ),
                                             InkWell(
                                               onTap: () {
+                                                Navigator.pop(context);
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(

@@ -2,19 +2,20 @@ import 'package:art_remoteapp/core/colors/colors.dart';
 import 'package:art_remoteapp/core/constants.dart';
 import 'package:art_remoteapp/domain/core/di/injectable.dart';
 import 'package:art_remoteapp/domain/helpdesk/model/topic_response/topic_response.dart';
-import 'package:art_remoteapp/presentation/apply_leave_page/screen_apply_leave_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../application/helpdesk/helpdesk_bloc.dart';
-import '../../application/preference/preference_bloc.dart';
+import '../../core/sessionmanager.dart';
 import '../../core/utility.dart';
 
 List<TopicResponse>? topicList;
 var token = "";
 var selectedfile = "";
 var selecedTopicId = "";
+SessionManager prefs = SessionManager();
+bool isProgressDialogshowing = false;
 
 TextEditingController subject = TextEditingController();
 TextEditingController cc = TextEditingController();
@@ -59,7 +60,14 @@ class ScreenHrPage extends StatelessWidget {
             children: [
               BlocConsumer<HelpdeskBloc, HelpdeskState>(
                 listener: (context, state) {
-                  if (state.isServerError) {
+                  if (isProgressDialogshowing) {
+                    Navigator.pop(context);
+                    isProgressDialogshowing = false;
+                  }
+
+                  if (state.isLoading) {
+                    showLoaderDialog(context);
+                  } else if (state.isServerError) {
                     Utility.getInstance().showServerErrorDialog(
                         context, "There is some problem.Please try later");
                   } else if (state.isClientError) {
@@ -177,7 +185,6 @@ class ScreenHrPage extends StatelessWidget {
                   } else if (content.text.isEmpty) {
                     Fluttertoast.showToast(msg: "Compose mail");
                   } else {
-                    showLoaderDialog(context);
                     BlocProvider.of<HelpdeskBloc>(context).add(
                       SendHelp(
                           token: token,
@@ -201,6 +208,7 @@ class ScreenHrPage extends StatelessWidget {
 }
 
 void showLoaderDialog(BuildContext context) {
+  isProgressDialogshowing = true;
   AlertDialog alert = AlertDialog(
     content: Row(
       children: [
