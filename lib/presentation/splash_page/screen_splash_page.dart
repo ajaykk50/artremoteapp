@@ -1,13 +1,10 @@
 import 'package:art_remoteapp/application/splash/splash_bloc.dart';
 import 'package:art_remoteapp/core/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/sessionmanager.dart';
-import '../home_page/screen_home_page.dart';
 import '../login_page/screen_login_page.dart';
 import '../main_page/screen_main_page.dart';
 
